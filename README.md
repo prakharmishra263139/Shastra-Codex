@@ -106,12 +106,20 @@ Six seed entries: BrahMos, Akash, Agni-V, Arjun, T-90S Bhishma, Tejas. They were
 chosen to stress the schema — two missiles that are nothing alike, two tanks that
 invite direct comparison, one aircraft.
 
-**Phase 2 — next.** Filter panel, sidebar tree, `Ctrl-K` command palette backed
-by MiniSearch, sorting and pagination.
+**Phase 2 — complete.** Persistent sidebar tree with counts and a mobile sheet,
+`Ctrl-K` command palette over MiniSearch (names, aliases, summaries, tags),
+faceted filtering with sorting and pagination on every category and class route,
+and a home page carrying recently added and recently viewed entries.
 
-**Phase 3.** The compare tray and the side-by-side diff table. The groundwork is
-in place: `compareCandidates()` in `src/content/index.ts` already returns the
-valid same-category candidates for any entry.
+Browse state — filters, sort, page — lives in the query string, so a filtered
+view is a shareable link. `src/lib/browse.ts` holds the pure functions behind it
+(`facetsFor`, `applyFilters`, `sortItems`, `paginate`); routes stay server
+components and hand a slim `BrowseItem[]` to the client.
+
+**Phase 3 — next.** The compare tray and the side-by-side diff table. The
+groundwork is in place: `compareCandidates()` in `src/content/index.ts` already
+returns the valid same-category candidates for any entry. Numeric range filters
+land with it, since their meaning is per-category.
 
 ---
 

@@ -2,8 +2,9 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { TAXONOMY, getCategory, getClass } from "@/content/taxonomy";
 import { entriesByClass } from "@/content";
+import { toBrowseItems } from "@/lib/browse";
 import { Breadcrumbs } from "@/components/breadcrumbs";
-import { EntryCard } from "@/components/entry-card";
+import { EntryBrowser } from "@/components/browse/entry-browser";
 
 export function generateStaticParams() {
   return TAXONOMY.flatMap((c) =>
@@ -26,10 +27,10 @@ export default async function ClassPage({ params }: PageProps<"/[category]/[clas
   const found = getClass(category, klass);
   if (!cat || !found) notFound();
 
-  const entries = entriesByClass(category, klass);
+  const items = toBrowseItems(entriesByClass(category, klass));
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-10">
+    <div className="px-4 py-10 sm:px-6">
       <Breadcrumbs
         trail={[
           { label: "Codex", href: "/" },
@@ -46,17 +47,11 @@ export default async function ClassPage({ params }: PageProps<"/[category]/[clas
       </header>
 
       <section className="mt-12">
-        {entries.length > 0 ? (
-          <>
-            <h2 className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-3 pb-4 border-b border-rule tabular">
-              {entries.length} {entries.length === 1 ? "entry" : "entries"}
-            </h2>
-            <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {entries.map((entry) => (
-                <EntryCard key={entry.slug} entry={entry} />
-              ))}
-            </div>
-          </>
+        {items.length > 0 ? (
+          <EntryBrowser
+            items={items}
+            facetKeys={["service", "status", "origin", "manufacturer", "decade"]}
+          />
         ) : (
           <div className="rounded-md border border-dashed border-rule p-10 text-center">
             <p className="font-display font-semibold text-[16px]">Nothing here yet</p>

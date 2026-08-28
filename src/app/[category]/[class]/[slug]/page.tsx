@@ -7,6 +7,7 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { SpecTable, MeasureValue } from "@/components/spec-table";
 import { StatusPill } from "@/components/entry-card";
 import { HeroImage, ImageGallery } from "@/components/entry-images";
+import { RecordView } from "@/components/nav/recently-viewed";
 import { formatService } from "@/lib/format";
 import { highlights } from "@/lib/highlights";
 
@@ -48,7 +49,13 @@ export default async function EntryPage({
   const candidates = compareCandidates(entry);
 
   return (
-    <article className="mx-auto max-w-6xl px-6 py-10">
+    <article className="max-w-5xl px-4 py-10 sm:px-6">
+      <RecordView
+        slug={entry.slug}
+        name={entry.name}
+        href={`/${entry.category}/${entry.class}/${entry.slug}`}
+      />
+
       <Breadcrumbs
         trail={[
           { label: "Codex", href: "/" },
