@@ -1,26 +1,103 @@
 @import "tailwindcss";
 
+/*
+  Dark first — students revise at night. Light is a designed counterpart,
+  not an inversion.
+
+  Visual direction: technical, not tactical. Instrument panels and engineering
+  drawings rather than camouflage and stencil type.
+*/
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ground: #0e1216;
+  --surface: #151b21;
+  --surface-2: #1d242b;
+  --ink: #e6ebef;
+  --ink-2: #a3aeb8;
+  --ink-3: #6f7a85;
+  --rule: #262f37;
+  --rule-soft: #1c242b;
+  --accent: #4fbfc9;
+  --accent-dim: #16343a;
+  --signal: #d6a24e;
+  --signal-dim: #322613;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --ground: #f0f2f4;
+    --surface: #ffffff;
+    --surface-2: #e6eaee;
+    --ink: #131a20;
+    --ink-2: #4c5762;
+    --ink-3: #77828d;
+    --rule: #d4dae0;
+    --rule-soft: #e3e8ec;
+    --accent: #0d6a74;
+    --accent-dim: #dceced;
+    --signal: #8f5d12;
+    --signal-dim: #f4e9d6;
   }
 }
 
+@theme inline {
+  --color-ground: var(--ground);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-rule: var(--rule);
+  --color-rule-soft: var(--rule-soft);
+  --color-accent: var(--accent);
+  --color-accent-dim: var(--accent-dim);
+  --color-signal: var(--signal);
+  --color-signal-dim: var(--signal-dim);
+
+  --font-display: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, monospace;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+
+/* Every column of figures lines up. */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+  Confidence markers. The point of difference for this site is admitting which
+  numbers are solid and which are not, so the distinction has to be visible
+  without being noisy.
+*/
+.conf-official {
+  border-bottom: 1px solid transparent;
+}
+.conf-reported {
+  border-bottom: 1px dotted var(--ink-3);
+  cursor: help;
+}
+.conf-estimated {
+  border-bottom: 1px dashed var(--signal);
+  cursor: help;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

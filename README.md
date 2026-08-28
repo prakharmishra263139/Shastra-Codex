@@ -1,36 +1,122 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Shastra Codex
 
-## Getting Started
+A browsable, comparable reference of Indian defence equipment, built for SSB aspirants.
 
-First, run the development server:
+Runs locally. No database, no backend, no accounts.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## Commands
+
+| Command | What it does |
+| --- | --- |
+| `npm run dev` | Start the dev server on http://localhost:3000 |
+| `npm run new` | Scaffold a new entry (interactive) |
+| `npm run validate` | Check every entry — errors block, warnings advise |
+| `npm run build` | Production build, prerenders every page |
+| `npm run typecheck` | TypeScript, with route types regenerated first |
+
+Non-interactive scaffolding:
+
+```
+npm run new -- --name "Pinaka Mk-II" --category missiles --class rocket-artillery
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How content works
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+One file per system, in `src/content/entries/`. The filename **must** match the
+entry's `slug` — the validator enforces this, because the slug is the URL.
 
-## Learn More
+```
+src/content/entries/brahmos.ts   →   /missiles/cruise/brahmos
+```
 
-To learn more about Next.js, take a look at the following resources:
+There is no central list to maintain. `npm run index` scans the folder and
+regenerates `src/content/entries/_registry.ts`, and it runs automatically before
+`dev`, `build` and `typecheck`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### The schema
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+`src/content/schema.ts` is the contract. Two halves:
 
-## Deploy on Vercel
+- **Core** — identical for every entry, so cards, lists and filters are generic.
+- **Specs** — a discriminated union keyed on `category`. A missile has `range`
+  and `guidance`; a tank has `armourType` and `enginePower`. Same category means
+  same spec shape, which is what makes side-by-side comparison a straight diff.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Five categories have fully typed spec blocks: `missiles`, `armour`, `artillery`,
+`aircraft`, `naval`. The remaining four (`small-arms`, `air-defence`, `sensors`,
+`strategic`) use a generic label/value list until their blocks are written. They
+render and validate fine; they just cannot be compared field by field yet.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Lock the schema now.** Changing it after a hundred entries exist means a
+hundred rewrites — ship changes as a migration script instead.
+
+### Confidence markers
+
+Every numeric figure is a `Measure` and must declare its confidence:
+
+```ts
+range: {
+  value: 290,
+  unit: "km",
+  confidence: "reported",   // "official" | "reported" | "estimated"
+  note: "Extended-range variants have been tested.",
+}
+```
+
+This is the site's point of difference. Most public defence specifications are
+estimates or export-variant numbers, and a site that prints them as hard fact
+will eventually mislead someone in an interview. `official` renders plainly,
+`reported` gets a dotted underline, `estimated` gets a dashed underline and a
+tilde. All three carry a tooltip.
+
+Use `min` where a figure is genuinely a band (Akash engages from 4.5 to 25 km).
+
+### Sourcing rules
+
+- **Public sources only.** PIB, Ministry of Defence, DRDO, HAL, BEL, BDL, the
+  three service websites, and established defence journalism. Everything SSB
+  tests is openly published — there is no reason to touch restricted material,
+  and doing so would destroy the site's credibility.
+- **Every entry cites and dates itself.** At least one source, plus a
+  `lastVerified` date rendered on the page. The validator warns past 365 days.
+- **Images need `credit` and `license`.** Both are required fields, so an
+  unattributed image cannot reach the build. Use PIB / MoD photographs under the
+  Government Open Data Licence – India, or Wikimedia Commons with attribution
+  preserved.
+
+> The seed entries currently cite top-level official pages. Replace these with
+> deep links to the specific page or press release as you verify each figure.
+
+---
+
+## Where the build has got to
+
+**Phase 0 — complete.** Next.js 16 + TypeScript + Tailwind v4, design tokens,
+full taxonomy, and the vertical slice rendering at real routes in both themes.
+
+**Phase 1 — complete.** Zod schema with five typed spec blocks, content loader,
+registry generator, validator, entry scaffolder, six seed entries across three
+categories.
+
+Six seed entries: BrahMos, Akash, Agni-V, Arjun, T-90S Bhishma, Tejas. They were
+chosen to stress the schema — two missiles that are nothing alike, two tanks that
+invite direct comparison, one aircraft.
+
+**Phase 2 — next.** Filter panel, sidebar tree, `Ctrl-K` command palette backed
+by MiniSearch, sorting and pagination.
+
+**Phase 3.** The compare tray and the side-by-side diff table. The groundwork is
+in place: `compareCandidates()` in `src/content/index.ts` already returns the
+valid same-category candidates for any entry.
+
+---
+
+## Notes
+
+- Node 23 is not an LTS release and npm warns about it during install. Node 22
+  LTS or 24 LTS is a smoother base.
+- `CLAUDE.md` and `AGENTS.md` are generated by `next dev`, not written by hand.
