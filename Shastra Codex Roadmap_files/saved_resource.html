@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<!-- saved from url=(0253)https://912b32ce-5bb2-4592-9a9a-4009beebe82c.frame.claudeusercontent.com/_f/1787941191-43d7/?__frame_t=HWFNGPs3sZz1oh2QFr9fJccZ.1b3b0e16-3b8f-4d2c-af22-0a85ee3f3f26.ed58cc9c-a5ea-4270-afab-63affc6882ca.1787944793&__frame_v=manifest.18cce61b83ab7ccd.json -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><!-- frame-runtime --><!--<base href="/_f/1787941191-43d7/">--><base href="."><script>window.__FRAME_PREAMBLE={"v":1,"capabilities":{"artifact":"artifact.D_F1mx8d.js","assets":"assets.8Gk803W0.js","comments":"comments.GLuHR3zP.js","db":"db.h-3sndFg.js","downloads":"downloads.C3GSvEDP.js","embed":"embed.CxGAyc-v.js","mcp":"mcp.Bvma3qD7.js","network":"network.B5UA9Su4.js","permissions":"permissions.BNySkLV5.js","room":"room.BMMoe2BY.js","sample":"sample.BW2Uysoh.js","self":"artifact.D_F1mx8d.js","user":"user.BpKav-Rf.js"},"transforms":"_transforms.DSB5x63f.js","comments":"_comments.DELvYLUh.js","translate":"_translate.5HCW4BJh.js"}</script><script>(function(){"use strict";var te=["light","dark","system"],re=/^[A-Za-z0-9_-]{1,64}$/,$=/^[a-zA-Z_:][a-zA-Z0-9_:.-]{0,127}$/,ne=new Set(["class","hidden","value","checked","style","title","alt","placeholder","lang","dir","role","tabindex","disabled","readonly","contenteditable","open","colspan","rowspan"]);function oe(e){const t=e.toLowerCase();return t.startsWith("data-")||t.startsWith("aria-")||ne.has(t)}var Be="http://www.w3.org/1999/xhtml",se="http://www.w3.org/2000/svg",ae=new Set(["script","style","iframe","noscript","noframes","noembed","xmp","plaintext","template","title","textarea","object","embed"]),ie=new Set(["script","style"]);function ce(e){const t=e.localName.toLowerCase();return e.namespaceURI==="http://www.w3.org/1999/xhtml"?!ae.has(t):e.namespaceURI===se?!ie.has(t):!1}function M(e,t){return e===t||(e===160||e===32)&&(t===160||t===32)}function le(e,t){const r=e.length,n=t.length;let s=0;for(;s<r&&s<n&&M(e.charCodeAt(s),t.charCodeAt(s));)s++;let o=0;for(;o<r-s&&o<n-s&&M(e.charCodeAt(r-1-o),t.charCodeAt(n-1-o));)o++;return{p:s,s:o}}function ue(e,t){const r=e.firstChild;if(e.childNodes.length!==1||r===null||r.nodeType!==Node.TEXT_NODE){e.textContent=t;return}const n=r.data,s=n.length,o=t.length,{p:i,s:c}=le(n,t);i===s&&c===0&&s===o||r.replaceData(i,s-i-c,t.slice(i,o-c));const h=r.data,p=e.ownerDocument.getSelection?.()??null,w=p!==null&&p.rangeCount>0&&(p.anchorNode===r||p.focusNode===r)?{anchor:p.anchorNode,anchorOffset:p.anchorOffset,focus:p.focusNode,focusOffset:p.focusOffset}:null;let m=-1,g=-1;for(let f=0;f<h.length&&f<t.length;f++){const v=h.charCodeAt(f),b=t.charCodeAt(f);v!==b&&M(v,b)&&(m<0&&(m=f),g=f)}const a=m>=0;if(a&&r.replaceData(m,g-m+1,t.slice(m,g+1)),a&&w!==null&&w.anchor!==null&&w.focus!==null)try{p.setBaseAndExtent(w.anchor,w.anchorOffset,w.focus,w.focusOffset)}catch{}}var fe=new Set(["html","head","body","frameset"]);function de(e){return e.namespaceURI==="http://www.w3.org/1999/xhtml"&&fe.has(e.localName)}function pe(e){if(e===null||typeof e!="object")return!1;const t=e;if(typeof t.target!="string"||!re.test(t.target)||t.text!==void 0&&typeof t.text!="string")return!1;if(t.attrsSet!==void 0){if(t.attrsSet===null||typeof t.attrsSet!="object")return!1;for(const[r,n]of Object.entries(t.attrsSet))if(!$.test(r)||typeof n!="string")return!1}if(t.attrsRemoved!==void 0){if(!Array.isArray(t.attrsRemoved))return!1;for(const r of t.attrsRemoved)if(typeof r!="string"||!$.test(r))return!1}return!0}function me(e,t){if(e===null||typeof e!="object")return!1;const{seq:r,elements:n}=e;if(typeof r!="number"||!Number.isSafeInteger(r)||!Array.isArray(n)||n.length===0||n.length>64)return!1;for(let s=0;s<n.length;s++)if(!t(n[s]))return!1;return!0}function he(e){return e===null||typeof e!="object"?!1:me(e.__frame_patch,pe)}function _e(e){if(e===null||typeof e!="object")return!1;const t=e.__frame_init;return t!==null&&typeof t=="object"}function ve(e){return e!==null&&typeof e=="object"&&e.__frame_size_poke===!0}function ye(e){if(e===null||typeof e!="object")return!1;const t=e.__frame_theme;if(t===null||typeof t!="object")return!1;const r=t.theme;return typeof r=="string"&&te.includes(r)}var A=/^[\w.-]+\.js$/;function we(e,t,r){return r?"inert":typeof t=="string"&&A.test(t)?e?[t]:"inert":e?"inert":"framed"}function ge(){return{post(e,t){parent.postMessage(e,t)},on(e){const t=r=>{r.source===parent&&e(r.data,r.origin,r.isTrusted)};return addEventListener("message",t),()=>removeEventListener("message",t)}}}function be(){return{post:()=>{},on:()=>()=>{}}}var j="__frame_scroll",Ee=150,Ae=310,Se=160,Te=3e4;function ke(){let e=0,t=!1,r=!1,n=!1,s=0,o=null;const i=l=>{try{sessionStorage.setItem(j,JSON.stringify({y:l}))}catch{}},c=()=>{if(clearTimeout(e),o===null)return;const l=o;o=null,i(l)},h=()=>{if(t){t=!1;return}r=!0,o=scrollY,clearTimeout(e),e=setTimeout(c,Ee)};try{addEventListener("scroll",h,{passive:!0}),addEventListener("pagehide",c)}catch{}const p=()=>{let l;try{l=sessionStorage.getItem(j)}catch{return null}if(l===null)return null;let _;try{_=JSON.parse(l)}catch{_=null}const d=_?.y;if(!(typeof d=="number"&&Number.isFinite(d)&&d>=0)){try{sessionStorage.removeItem(j)}catch{}return null}return d};let w=!1;const m=l=>{try{const _=scrollY;scrollTo({top:l,left:0,behavior:"instant"}),s=l,n=!0,clearTimeout(e),o=null,i(l);const d=scrollY;d!==_&&(t=!0),d!==l&&!w&&(w=!0,addEventListener("load",()=>{try{if(scrollY===d){const T=p();m(T!==null?T:s)}}catch{}},{once:!0}))}catch{}},g=()=>{try{return!!location.hash}catch{return!0}};let a=!1;const f=()=>{try{if(a||innerWidth>Ae||innerHeight>Se)return;a=!0;const l=Date.now(),_=()=>{try{removeEventListener("resize",_)}catch{}if(Date.now()-l>Te||r||g())return;const d=p();m(d!==null?d:s)};addEventListener("resize",_)}catch{}};let v=!1,b=!1;return{restore(){if(v||(v=!0,g()))return;const l=p();l!==null&&(m(l),f())},promoted(){if(b||(b=!0,g()))return;const l=p();l!==null?(m(l),f()):n&&m(s)}}}function Re(e,t,r,n){let s=null;try{s=window.trustedTypes?.createPolicy("frame-runtime",{createScriptURL:h=>h})??null}catch{}const o=window.Worker,i=o?.prototype,c=Object.freeze({Worker:o,workerOn:i?.addEventListener,workerPost:i?.postMessage,workerTerminate:i?.terminate,fetch:window.fetch.bind(window),preventDefault:Event.prototype.preventDefault,policy:s,origins:t});r(e).then(h=>h?.bootTopLevel?h.bootTopLevel(c,n):n.settle()).catch(()=>n.settle())}var De="modulepreload",Ie=function(e){return"/"+e},Ue={},Le=function(t,r,n){let s=Promise.resolve();function o(i){const c=new Event("vite:preloadError",{cancelable:!0});if(c.payload=i,window.dispatchEvent(c),!c.defaultPrevented)throw i}return s.then(i=>{for(const c of i||[])c.status==="rejected"&&o(c.reason);return t().catch(o)})},Oe=window===top,q=Object.getOwnPropertyDescriptor(window,"claude"),k=we(Oe,window.__FRAME_PREAMBLE?.topLevel,q?.writable===!1),N=typeof k=="object"&&k[0],y=N?be():ge();(function(){const e=Object.defineProperty,t=globalThis,r=["RTCPeerConnection","webkitRTCPeerConnection","RTCDataChannel","RTCIceCandidate","RTCSessionDescription","RTCRtpSender","RTCRtpReceiver"];let n=0;for(let s=0;s<r.length;s++){const o=r[s];try{e(t,o,{value:void 0,writable:!1,configurable:!1})}catch{try{delete t[o]}catch{}try{e(t,o,{value:void 0,writable:!1,configurable:!0})}catch{}}typeof t[o]=="function"&&n++}if(n&&k==="framed")try{y.post({__frame_rtc_lockdown_failed:n},"*")}catch{}})();var Pe=1e4,Y=Object.freeze([...window.__FRAME_PREAMBLE?.origins??["https://claude.ai","https://preview.claude.ai"]]);function X(e){for(const t of Y)if(t.endsWith(":*"))try{const r=new URL(e);if(`${r.protocol}//${r.hostname}:*`===t)return!0}catch{}else if(e===t)return!0;return!1}var R=Object.freeze({...window.__FRAME_PREAMBLE?.capabilities}),B=window.__FRAME_PREAMBLE?.transforms,D=window.__FRAME_PREAMBLE?.comments,I=window.__FRAME_PREAMBLE?.translate;function S(e){return Le(()=>import("/_runtime/"+e),void 0)}function G(e,t){return{contract:e.contract,changes:new Set(e.changes??[]),flags:new Set(e.flags??[]),capabilities:e.capabilities??{},capBudgets:e.capBudgets??{},transforms:new Map,shellOrigin:t,mount:x,hooks:O,pipe:()=>({wrap:(r,n)=>(...s)=>{try{return n(...s)}catch(o){return Promise.reject(o)}}})}}var L=null,E=null;function V(e,t,r){try{Object.defineProperty(e,t,{value:r,writable:!1,configurable:!1,enumerable:!0})}catch{try{Object.defineProperty(e,t,{value:r,writable:!1,configurable:!0,enumerable:!0})}catch{}}}var U=!1,O={editBefore:null,edit:null};function Ce(e,t,r=!1){const n=[];let s;if(r)try{O.editBefore?.(e)}catch{}for(const o of e.elements){const i=document.querySelector(`[data-id="${o.target}"]`);if(!i){s=o.target;break}if([...Object.keys(o.attrsSet??{}),...o.attrsRemoved??[]].some(c=>!oe(c))){s=o.target;break}if(o.text!==void 0&&(!ce(i)||de(i))){s=o.target;break}for(const[c,h]of Object.entries(o.attrsSet??{}))if(!J(i,c)){try{i.setAttribute(c,h)}catch{}Z(i,c,h)}for(const c of o.attrsRemoved??[])J(i,c)||(i.removeAttribute(c),Z(i,c,null));typeof o.text=="string"&&ue(i,o.text),n.push(o.target)}if(r)try{O.edit?.(e.seq,n,s)}catch{}if(s!==void 0){y.post({__frame_patch_miss:{seq:e.seq}},t);return}try{document.dispatchEvent(new CustomEvent("claude:edit",{detail:{seq:e.seq,targets:n}}))}catch{}}function Z(e,t,r){if(!(e instanceof HTMLInputElement))return;const n=t.toLowerCase();n==="checked"?e.checked=r!==null:n==="value"&&e.type!=="file"&&(e.value=r??"")}function J(e,t){const r=t.toLowerCase(),n=e;return r==="data-id"||(r==="value"||r==="checked")&&(n.__artifactSecret===!0||/^(password|hidden|file)$/.test(n.type??"")||/(^|\s)(cc-|one-time-code|current-password|new-password)/i.test(`${e.getAttribute("autocomplete")??""} ${n.autocomplete??""}`))}function Q(e){const t=document.documentElement;e==="light"||e==="dark"?(t.dataset.theme=e,t.style.colorScheme=e,U=!0):U&&(delete t.dataset.theme,t.style.colorScheme="",U=!1)}var P=new Map;function Me(){let e;const t={u:new Promise(r=>{e=r}),r:r=>{t.done=!0,e(r)},done:!1,nulled:!1};return t}function F(){for(const e of P.values())e.done||(e.nulled=!0,e.r(null))}var je=Object.freeze(Object.assign(Object.create(null),{call:Function.prototype.call,apply:Function.prototype.apply,bind:Function.prototype.bind})),x=(e,t)=>{const r=P.get(e);if(!r||r.done){r?.nulled&&E&&y.post({__frame_cap_telemetry:{kind:"cap-load-error",cap:e}},E);return}const n=typeof t=="function"?Object.setPrototypeOf(t,je):Object.assign(Object.create(null),t);typeof n.then=="function"&&delete n.then,r.r(Object.freeze(n))};function ee(){const e=q?.value??{};V(window,"claude",e);for(const t of Object.keys(R)){if(e[t]!==void 0){V(e,t,e[t]);continue}P.set(t,Me())}if(e.use===void 0){const t=r=>{if(typeof r!="string"||!Object.hasOwn(R,r))return Promise.resolve(null);const n=P.get(r);return n?n.u:Promise.resolve(e[r]??null)};try{Object.defineProperty(e,"use",{value:t,writable:!0,configurable:!0,enumerable:!1})}catch{}}}if(k==="framed"){const e=B&&A.test(B)?S(B).catch(()=>{}):Promise.resolve(void 0),t=a=>{if(a.type==="auxclick"&&a.button!==1)return;const f=a.target,v=f&&f.closest?f.closest("a[href],area[href]"):null;if(!v)return;const b=v.getAttribute("href");if(!b)return;let l;try{l=new URL(b,document.baseURI)}catch{return}if((l.protocol==="http:"||l.protocol==="https:")&&l.origin!==location.origin){a.preventDefault();const _=(v.getAttribute("target")??"").toLowerCase(),d=a.type==="auxclick"||a.metaKey||a.ctrlKey||a.shiftKey||a.altKey||!["","_self","_top","_parent"].includes(_);y.post({__frame_nav:!0,url:l.href,newTab:d},"*")}};addEventListener("click",t,!0),addEventListener("auxclick",t,!0);const r={},n=a=>{a.isTrusted&&(r.pointer=!0)},s=a=>{a.isTrusted&&(r.click=!0)};addEventListener("pointermove",n,{capture:!0,passive:!0}),addEventListener("click",s,{capture:!0,passive:!0}),e.then(a=>{a?.wireNav&&(a.wireNav(),removeEventListener("click",t,!0),removeEventListener("auxclick",t,!0),removeEventListener("pointermove",n,!0),removeEventListener("click",s,!0),a.wireEngagement?.(r))});let o=null;try{o=ke()}catch{}ee();let i=null,c=null,h=0;const p=y.on((a,f)=>{X(f)&&_e(a)&&(i=a.__frame_init,E=f,p(),clearTimeout(h),c?.())});y.post({__frame_connect:!0},"*");const w=new Promise(a=>{c=a,h=setTimeout(()=>{p(),a()},Pe)}),m=document.readyState==="loading"?new Promise(a=>document.addEventListener("DOMContentLoaded",()=>a(),{once:!0})):Promise.resolve();m.then(()=>{try{o?.restore()}catch{}});const g={cb:null};y.on((a,f)=>{if(X(f)&&ve(a)){try{o?.promoted()}catch{}g.cb?.()}}),w.then(async()=>{if(!i||!E){F();return}Q(i.theme);const a=E;let f=!1,v=!1;y.on((u,z,C)=>{if(z!==a)return;ye(u)&&Q(u.__frame_theme.theme),he(u)&&Ce(u.__frame_patch,a,C);const H=u?.__fc_mode;H&&typeof H=="object"&&!f&&D&&A.test(D)&&(f=!0,S(D).then(K=>K.install?.(a,H.on===!0)).catch(()=>{}));const W=u?.__ft_cmd;W&&typeof W=="object"&&!v&&I&&A.test(I)&&(v=!0,S(I).then(K=>K.install?.(a,W)).catch(()=>{}))});const b=Object.keys(i.capabilities??{}).filter(u=>Object.hasOwn(R,u)).map(u=>[u,R[u]]).filter(u=>typeof u[1]=="string"&&A.test(u[1])),l=await Promise.allSettled(b.map(([,u])=>S(u))),_=await e,d=E;if(_?.buildBoot||y.post({__frame_cap_telemetry:{kind:"cap-load-error",cap:"_transforms"}},d),_?.buildBoot)try{L=_.buildBoot(i,_.TRANSFORMS??{},{shellOrigin:d,mount:x,hooks:O},u=>y.post({__frame_cap_telemetry:u},d))}catch{y.post({__frame_cap_telemetry:{kind:"cap-load-error",cap:"_transforms"}},d),L=G(i,d)}else L=G(i,d);const T=u=>y.post({__frame_cap_telemetry:{kind:"cap-load-error",cap:u}},d),Ne=L;l.forEach((u,z)=>{const C=b[z][0];if(u.status!=="fulfilled"){T(C);return}try{u.value?.install?.(Ne)}catch{T(C)}}),F(),await m,y.post({__frame_ready:!0},E),e.then(u=>u?.installSizeReporter?.(d,g))})}else N&&(ee(),Re(N,Y,S,{settle:F,mount:x}))})();</script><!-- /frame-runtime --><meta name="viewport" content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style></head><body>
+<title>Shastra Codex Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link rel="stylesheet" href="./css2">
+
+<style>
+  /* ---------- tokens: light is the base, complete palette ---------- */
+  :root {
+    --paper:      #F1F3F5;
+    --surface:    #FFFFFF;
+    --surface-2:  #E7EAEE;
+    --ink:        #14181C;
+    --ink-2:      #4E5862;
+    --ink-3:      #79838E;
+    --rule:       #D5DBE1;
+    --rule-soft:  #E4E8EC;
+    --accent:     #0E6B75;
+    --accent-2:   #0A5058;
+    --accent-wash:#DDEDEF;
+    --signal:     #A66A12;
+    --signal-wash:#F4E8D4;
+    --shadow:     0 1px 2px rgba(20,24,28,.05), 0 8px 24px -14px rgba(20,24,28,.22);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:      #101418;
+      --surface:    #171C21;
+      --surface-2:  #1F252B;
+      --ink:        #E5E9ED;
+      --ink-2:      #A2ACB6;
+      --ink-3:      #78828C;
+      --rule:       #2B333A;
+      --rule-soft:  #222930;
+      --accent:     #4FBFC9;
+      --accent-2:   #7FD6DE;
+      --accent-wash:#123034;
+      --signal:     #D6A24E;
+      --signal-wash:#332711;
+      --shadow:     0 1px 2px rgba(0,0,0,.4), 0 10px 28px -16px rgba(0,0,0,.8);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:      #101418;
+    --surface:    #171C21;
+    --surface-2:  #1F252B;
+    --ink:        #E5E9ED;
+    --ink-2:      #A2ACB6;
+    --ink-3:      #78828C;
+    --rule:       #2B333A;
+    --rule-soft:  #222930;
+    --accent:     #4FBFC9;
+    --accent-2:   #7FD6DE;
+    --accent-wash:#123034;
+    --signal:     #D6A24E;
+    --signal-wash:#332711;
+    --shadow:     0 1px 2px rgba(0,0,0,.4), 0 10px 28px -16px rgba(0,0,0,.8);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------- layout scaffolding ---------- */
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+  .col  { max-width: 680px; }            /* ~66ch reading measure */
+  .bleed{ max-width: 1180px; }
+
+  section { padding: 54px 0; border-top: 1px solid var(--rule-soft); }
+  section:first-of-type { border-top: 0; }
+
+  .stack   { display: flex; flex-direction: column; gap: 18px; }
+  .stack-s { display: flex; flex-direction: column; gap: 10px; }
+  .stack-l { display: flex; flex-direction: column; gap: 30px; }
+
+  /* ---------- type ---------- */
+  h1, h2, h3, h4 {
+    font-family: Archivo, ui-sans-serif, system-ui, sans-serif;
+    text-wrap: balance;
+    margin: 0;
+    letter-spacing: -0.015em;
+  }
+  h1 { font-size: clamp(2.5rem, 6vw, 3.9rem); font-weight: 700; line-height: 1.02; letter-spacing: -0.032em; }
+  h2 { font-size: clamp(1.6rem, 3.2vw, 2.15rem); font-weight: 700; line-height: 1.12; }
+  h3 { font-size: 1.18rem; font-weight: 600; line-height: 1.3; }
+  h4 { font-size: .95rem;  font-weight: 600; line-height: 1.35; }
+  p  { margin: 0; }
+  a  { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+
+  .label {
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: .70rem;
+    font-weight: 500;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .label-muted { color: var(--ink-3); }
+  .deck   { font-size: 1.16rem; line-height: 1.55; color: var(--ink-2); }
+  .muted  { color: var(--ink-2); }
+  .small  { font-size: .9rem; }
+  .mono   { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
+  em.term { font-style: normal; font-weight: 600; color: var(--ink); }
+
+  /* ---------- masthead ---------- */
+  .masthead { padding: 68px 0 46px; }
+  .rule-tick {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 26px;
+  }
+  .rule-tick .bar { height: 3px; width: 46px; background: var(--accent); border-radius: 2px; }
+  .rule-tick .bar.alt { width: 14px; background: var(--signal); }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 30px; }
+  .chip {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: .72rem; letter-spacing: .04em;
+    padding: 5px 11px;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    background: var(--surface);
+    color: var(--ink-2);
+    white-space: nowrap;
+  }
+  .chip b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- cards ---------- */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 22px 24px;
+  }
+  .card-quiet { background: var(--surface-2); border-color: transparent; }
+
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
+
+  /* ---------- callout ---------- */
+  .callout {
+    border-left: 3px solid var(--signal);
+    background: var(--signal-wash);
+    padding: 16px 20px;
+    border-radius: 0 5px 5px 0;
+  }
+  .callout .label { color: var(--signal); }
+
+  .note {
+    border-left: 3px solid var(--accent);
+    background: var(--accent-wash);
+    padding: 16px 20px;
+    border-radius: 0 5px 5px 0;
+  }
+
+  /* ---------- lists ---------- */
+  ul.clean { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 9px; }
+  ul.clean > li { padding-left: 20px; position: relative; }
+  ul.clean > li::before {
+    content: ""; position: absolute; left: 3px; top: .68em;
+    width: 6px; height: 1px; background: var(--accent);
+  }
+  ul.dash { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 7px; font-size: .93rem; }
+  ul.dash > li { padding-left: 16px; position: relative; color: var(--ink-2); }
+  ul.dash > li::before { content: "\2013"; position: absolute; left: 0; color: var(--ink-3); }
+
+  /* ---------- taxonomy ---------- */
+  .tax { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 14px; }
+  .tax-card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 18px 20px 20px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .tax-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .tax-head .n {
+    font-family: "IBM Plex Mono", monospace; font-size: .7rem;
+    color: var(--ink-3); letter-spacing: .08em;
+  }
+  .tax-sub { display: flex; flex-direction: column; gap: 8px; }
+  .tax-sub > div { border-top: 1px solid var(--rule-soft); padding-top: 8px; }
+  .tax-sub > div:first-child { border-top: 0; padding-top: 0; }
+  .tax-sub .s {
+    font-size: .87rem; font-weight: 600; color: var(--ink);
+    display: block;
+  }
+  .tax-sub .ex {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: .74rem; color: var(--ink-3); line-height: 1.5;
+    display: block; margin-top: 1px;
+  }
+
+  /* ---------- phase spine ---------- */
+  .spine { display: flex; flex-direction: column; gap: 14px; position: relative; }
+  .phase {
+    display: grid;
+    grid-template-columns: 92px 1fr;
+    gap: 0;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .phase-num {
+    background: var(--surface-2);
+    border-right: 1px solid var(--rule);
+    padding: 20px 14px;
+    display: flex; flex-direction: column; gap: 4px; align-items: flex-start;
+  }
+  .phase-num .p {
+    font-family: Archivo, sans-serif; font-weight: 700;
+    font-size: 1.75rem; line-height: 1; color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .phase-num .t {
+    font-family: "IBM Plex Mono", monospace; font-size: .66rem;
+    letter-spacing: .07em; color: var(--ink-3); text-transform: uppercase;
+  }
+  .phase-body { padding: 20px 24px; display: flex; flex-direction: column; gap: 13px; }
+  .phase-body .goal { color: var(--ink-2); font-size: .96rem; }
+  .done {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: .78rem; line-height: 1.5;
+    border-top: 1px dashed var(--rule);
+    padding-top: 11px; color: var(--ink-2);
+  }
+  .done b { color: var(--signal); font-weight: 600; letter-spacing: .06em; }
+
+  .phase.parallel { border-style: dashed; }
+  .phase.parallel .phase-num { background: var(--signal-wash); }
+  .phase.parallel .phase-num .p { color: var(--signal); }
+
+  /* ---------- code ---------- */
+  .code {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    overflow-x: auto;
+    padding: 18px 20px;
+  }
+  .code pre {
+    margin: 0;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: .795rem;
+    line-height: 1.68;
+    color: var(--ink-2);
+    white-space: pre;
+  }
+  .code .k { color: var(--accent); font-weight: 500; }
+  .code .s { color: var(--signal); }
+  .code .c { color: var(--ink-3); font-style: italic; }
+  .code .n { color: var(--ink); font-weight: 500; }
+
+  /* ---------- table ---------- */
+  .tbl-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 6px; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; min-width: 620px; }
+  th, td { text-align: left; padding: 12px 16px; vertical-align: top; font-size: .89rem; }
+  thead th {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: .69rem; letter-spacing: .13em; text-transform: uppercase;
+    color: var(--ink-3); font-weight: 500;
+    border-bottom: 1px solid var(--rule);
+    background: var(--surface-2);
+  }
+  tbody tr { border-bottom: 1px solid var(--rule-soft); }
+  tbody tr:last-child { border-bottom: 0; }
+  tbody td:first-child { font-weight: 600; color: var(--ink); }
+  td .sev {
+    display: inline-block; font-family: "IBM Plex Mono", monospace;
+    font-size: .66rem; letter-spacing: .08em; text-transform: uppercase;
+    padding: 2px 7px; border-radius: 3px; white-space: nowrap;
+  }
+  .sev-hi  { background: var(--signal-wash); color: var(--signal); }
+  .sev-mid { background: var(--accent-wash); color: var(--accent); }
+
+  /* ---------- anatomy diagram ---------- */
+  .anatomy { display: flex; flex-direction: column; gap: 6px; }
+  .slab {
+    border: 1px solid var(--rule);
+    border-radius: 5px;
+    background: var(--surface);
+    padding: 12px 16px;
+    display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+  }
+  .slab .zone {
+    font-family: "IBM Plex Mono", monospace; font-size: .68rem;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--accent);
+    min-width: 96px;
+  }
+  .slab .what { font-size: .89rem; color: var(--ink-2); flex: 1; min-width: 200px; }
+  .slab.hero-slab { border-left: 3px solid var(--accent); }
+
+  /* ---------- next actions ---------- */
+  .actions { display: flex; flex-direction: column; gap: 10px; counter-reset: act; }
+  .action {
+    display: flex; gap: 16px; align-items: flex-start;
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 6px; padding: 16px 20px;
+  }
+  .action::before {
+    counter-increment: act; content: counter(act);
+    font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: .82rem;
+    color: var(--paper); background: var(--accent);
+    width: 22px; height: 22px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 2px;
+  }
+
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 34px 0 60px;
+    color: var(--ink-3);
+    font-size: .84rem;
+  }
+
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+  @media (max-width: 620px) {
+    .wrap { padding: 0 20px; }
+    .phase { grid-template-columns: 1fr; }
+    .phase-num { flex-direction: row; align-items: baseline; gap: 10px; border-right: 0; border-bottom: 1px solid var(--rule); padding: 12px 20px; }
+  }
+</style>
+
+<div class="wrap">
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead col">
+    <div class="rule-tick"><span class="bar"></span><span class="bar alt"></span></div>
+    <p class="label" style="margin-bottom:18px;">Build Roadmap &nbsp;/&nbsp; v1</p>
+    <h1>Shastra Codex</h1>
+    <p class="deck" style="margin-top:20px;">
+      A browsable, comparable encyclopedia of Indian defence equipment — built so an SSB
+      aspirant can walk into the personal interview knowing what a system <em class="term">is</em>,
+      what it <em class="term">does</em>, and why it <em class="term">matters</em>.
+    </p>
+    <div class="chips">
+      <span class="chip"><b>Scope</b> · Equipment encyclopedia</span>
+      <span class="chip"><b>Mode</b> · Solo, full-time</span>
+      <span class="chip"><b>Runs</b> · Local-first</span>
+      <span class="chip"><b>Horizon</b> · ~13 weeks to v1</span>
+    </div>
+    <p class="small muted" style="margin-top:22px;">
+      <span class="mono">Shastra Codex</span> is a working name — swap it freely. Everything below
+      assumes an empty folder at <span class="mono">D:\PERSONAL\PROJECT-INFO</span> and Node&nbsp;23 already installed.
+    </p>
+  </header>
+
+  <!-- ============ THE PRODUCT ============ -->
+  <section>
+    <div class="col stack">
+      <p class="label">01 &nbsp;/&nbsp; The product</p>
+      <h2>One job, done extremely well</h2>
+      <p>
+        This is not an SSB prep platform. It is a <em class="term">reference work</em> with a learning
+        layer bolted on. A student lands on it because they heard "Pralay" in the news or an
+        interviewer asked about "the difference between Akash and QRSAM", and they need a clear,
+        trustworthy, fast answer — not a forum thread and not a 40-tab Wikipedia crawl.
+      </p>
+      <p>
+        Everything in the roadmap serves three verbs: <em class="term">find</em>, <em class="term">compare</em>,
+        <em class="term">retain</em>. If a feature doesn't serve one of those, it belongs in a later version.
+      </p>
+
+      <div class="note stack-s" style="margin-top:8px;">
+        <p class="label">Definition of done for v1</p>
+        <ul class="dash">
+          <li>Any equipment reachable in under three seconds from anywhere in the app.</li>
+          <li>Two systems in the same class placed side by side with differences visibly marked.</li>
+          <li>A student can revise twenty entries in fifteen minutes without leaving the site.</li>
+          <li>Every specification carries a source and a last-verified date.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STACK ============ -->
+  <section>
+    <div class="col stack">
+      <p class="label">02 &nbsp;/&nbsp; Technical decision</p>
+      <h2>The stack, and why</h2>
+      <p>
+        You left this to me. For a content-heavy, hierarchical, comparison-driven encyclopedia that
+        runs on your machine first and may go public later, the answer is a static-content app with
+        no database.
+      </p>
+    </div>
+
+    <div class="bleed grid-2" style="margin-top:26px;">
+      <div class="card stack-s">
+        <p class="label">Framework</p>
+        <h3>Next.js 15 · App Router · TypeScript</h3>
+        <p class="small muted">
+          File-based routing maps perfectly onto <span class="mono">/missiles/air-to-air/astra</span>.
+          Static generation means every page is pre-rendered — instant locally, and a one-command
+          deploy if you ever publish. Server Components keep the shipped JavaScript small.
+        </p>
+      </div>
+      <div class="card stack-s">
+        <p class="label">Content store</p>
+        <h3>MDX + JSON files in the repo</h3>
+        <p class="small muted">
+          One file per equipment. No database to install, back up, or keep running. Git gives you
+          version history on every spec correction. Editable in any editor. If you ever outgrow it,
+          the same files seed a Postgres table without rewriting the app.
+        </p>
+      </div>
+      <div class="card stack-s">
+        <p class="label">Validation</p>
+        <h3>Zod schemas + a check script</h3>
+        <p class="small muted">
+          The schema is the contract that makes comparison possible. A single
+          <span class="mono">npm run validate</span> refuses to build if an entry is missing a required
+          field, uses a wrong unit, or names a category that doesn't exist.
+        </p>
+      </div>
+      <div class="card stack-s">
+        <p class="label">Interface</p>
+        <h3>Tailwind CSS + shadcn/ui + Radix</h3>
+        <p class="small muted">
+          You own the component source, so the aesthetic stays yours rather than looking like a
+          template. Radix underneath gives keyboard navigation and accessibility for free —
+          which matters for a command palette and a compare tray.
+        </p>
+      </div>
+      <div class="card stack-s">
+        <p class="label">Search</p>
+        <h3>MiniSearch, client-side</h3>
+        <p class="small muted">
+          A prebuilt index ships with the app. Handles a few thousand entries with fuzzy matching and
+          alias support — so "P-8", "Poseidon" and "P-8I Neptune" all land in the same place. No
+          server, no API key.
+        </p>
+      </div>
+      <div class="card stack-s">
+        <p class="label">Media</p>
+        <h3>next/image + local <span class="mono">/public</span></h3>
+        <p class="small muted">
+          Images stay in the repo alongside content, with a mandatory
+          <span class="mono">credit</span> and <span class="mono">license</span> field per image.
+          Automatic resizing and lazy loading keep dense grid pages fast.
+        </p>
+      </div>
+    </div>
+
+    <div class="col" style="margin-top:24px;">
+      <div class="callout stack-s">
+        <p class="label">Deliberately not in v1</p>
+        <p class="small">
+          No user accounts, no backend, no payments, no CMS. Every one of those costs days you should
+          be spending on content and on the compare view. Bookmarks and quiz progress live in browser
+          storage — they can migrate to accounts later if the site goes public.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TAXONOMY ============ -->
+  <section>
+    <div class="col stack">
+      <p class="label">03 &nbsp;/&nbsp; Information architecture</p>
+      <h2>Category → class → entry</h2>
+      <p>
+        This is the spine of the whole product, exactly as you described it: a top category, a class
+        beneath it, then individual systems. Two levels deep — never three, or navigation starts
+        to feel like a filing cabinet.
+      </p>
+      <p class="small muted">
+        Below is a proposed full taxonomy. Grey text shows representative entries, not the complete list.
+      </p>
+    </div>
+
+    <div class="bleed tax" style="margin-top:26px;">
+
+      <div class="tax-card">
+        <div class="tax-head"><h3>Missiles &amp; Rockets</h3><span class="n">9 classes</span></div>
+        <div class="tax-sub">
+          <div><span class="s">Air-to-Air</span><span class="ex">Astra Mk-1/2 · R-73 · R-77 · MICA · Meteor · Python-5</span></div>
+          <div><span class="s">Air-to-Surface</span><span class="ex">SCALP · HAMMER · Crystal Maze · SAAW</span></div>
+          <div><span class="s">Surface-to-Air</span><span class="ex">Akash · Akash-NG · QRSAM · MRSAM · S-400 · VSHORAD</span></div>
+          <div><span class="s">Ballistic (Surface-to-Surface)</span><span class="ex">Agni I–V · Agni-P · Prithvi · Pralay · K-15 · K-4</span></div>
+          <div><span class="s">Cruise</span><span class="ex">BrahMos · BrahMos-NG · Nirbhay · ITCM</span></div>
+          <div><span class="s">Anti-Tank</span><span class="ex">Nag · Helina/Dhruvastra · MPATGM · Spike LR · Konkurs</span></div>
+          <div><span class="s">Anti-Ship</span><span class="ex">BrahMos (naval) · Kh-35 Uran · NASM-SR</span></div>
+          <div><span class="s">Anti-Radiation &amp; Hypersonic</span><span class="ex">Rudram-1/2/3 · HSTDV · ET-LDHCM</span></div>
+          <div><span class="s">Rocket Artillery (MBRL)</span><span class="ex">Pinaka Mk-I/II · Guided Pinaka · BM-30 Smerch · BM-21 Grad</span></div>
+        </div>
+      </div>
+
+      <div class="tax-card">
+        <div class="tax-head"><h3>Armoured Vehicles</h3><span class="n">5 classes</span></div>
+        <div class="tax-sub">
+          <div><span class="s">Main Battle Tanks</span><span class="ex">Arjun Mk-1A · T-90S Bhishma · T-72 Ajeya · FRCV</span></div>
+          <div><span class="s">Light Tanks</span><span class="ex">Zorawar</span></div>
+          <div><span class="s">Infantry Combat Vehicles</span><span class="ex">BMP-2 Sarath · FICV programme</span></div>
+          <div><span class="s">Protected &amp; Utility Vehicles</span><span class="ex">Kalyani M4 · MPV · Bullet-proof Safari · ALSV</span></div>
+          <div><span class="s">Engineering &amp; Recovery</span><span class="ex">Sarvatra bridge · BLT T-72 · ARV WZT-3 · CBRN recce</span></div>
+        </div>
+      </div>
+
+      <div class="tax-card">
+        <div class="tax-head"><h3>Artillery</h3><span class="n">4 classes</span></div>
+        <div class="tax-sub">
+          <div><span class="s">Towed Guns</span><span class="ex">ATAGS · Dhanush · M777 ULH · FH-77B Bofors · Sharang</span></div>
+          <div><span class="s">Self-Propelled</span><span class="ex">K9 Vajra-T · Catapult Mk-II</span></div>
+          <div><span class="s">Mortars &amp; Infantry Support</span><span class="ex">51mm · 81mm E1 · 120mm · AGS-30</span></div>
+          <div><span class="s">Fire Control &amp; Locating</span><span class="ex">Swathi WLR · ACCCS Shakti · Divyastra</span></div>
+        </div>
+      </div>
+
+      <div class="tax-card">
+        <div class="tax-head"><h3>Small Arms &amp; Infantry</h3><span class="n">5 classes</span></div>
+        <div class="tax-sub">
+          <div><span class="s">Assault Rifles</span><span class="ex">AK-203 · SIG-716 · INSAS · Excalibur · TAR / Trichy</span></div>
+          <div><span class="s">Carbines &amp; SMGs</span><span class="ex">JVPC · MSMC · CAR-816 · Sterling</span></div>
+          <div><span class="s">Sniper &amp; Marksman</span><span class="ex">SAKO TRG-42 · Beretta Scorpio · Dragunov · Vidhwansak</span></div>
+          <div><span class="s">Support Weapons</span><span class="ex">Negev NG-7 · PKM · MG-2A1 · Carl Gustaf M4 · AGL</span></div>
+          <div><span class="s">Soldier Systems</span><span class="ex">F-INSAS · Sarvatra kavach · ABHED armour · NVDs · Ultra-light bulletproof jackets</span></div>
+        </div>
+      </div>
+
+      <div class="tax-card">
+        <div class="tax-head"><h3>Air Power</h3><span class="n">7 classes</span></div>
+        <div class="tax-sub">
+          <div><span class="s">Fighters &amp; Multirole</span><span class="ex">Tejas Mk-1A · Su-30MKI · Rafale · Mirage 2000 · MiG-29UPG · Jaguar</span></div>
+          <div><span class="s">Under Development</span><span class="ex">AMCA · Tejas Mk-2 · TEDBF · ORCA</span></div>
+          <div><span class="s">Transport</span><span class="ex">C-17 Globemaster III · C-130J · IL-76 · An-32 · C-295</span></div>
+          <div><span class="s">Rotary Wing</span><span class="ex">LCH Prachand · ALH Dhruv · Rudra · AH-64E Apache · CH-47F Chinook · Mi-17V5</span></div>
+          <div><span class="s">Special Mission</span><span class="ex">Netra AEW&amp;C · A-50EI Phalcon · P-8I Neptune · IL-78MKI tanker</span></div>
+          <div><span class="s">Unmanned</span><span class="ex">MQ-9B SeaGuardian · Heron TP · TAPAS-BH · Archer-NG · Nagastra · SkyStriker</span></div>
+          <div><span class="s">Trainers</span><span class="ex">HTT-40 · PC-7 Mk-II · Hawk Mk-132 · HJT-36 Yashas</span></div>
+        </div>
+      </div>
+
+      <div class="tax-card">
+        <div class="tax-head"><h3>Naval Platforms</h3><span class="n">7 classes</span></div>
+        <div class="tax-sub">
+          <div><span class="s">Aircraft Carriers</span><span class="ex">INS Vikrant · INS Vikramaditya · IAC-II</span></div>
+          <div><span class="s">Destroyers</span><span class="ex">Visakhapatnam class (P-15B) · Kolkata class · Delhi class</span></div>
+          <div><span class="s">Frigates</span><span class="ex">Nilgiri class (P-17A) · Shivalik class · Talwar class</span></div>
+          <div><span class="s">Corvettes &amp; OPVs</span><span class="ex">Kamorta class · Kora class · Saryu class · Next-Gen Corvette</span></div>
+          <div><span class="s">Submarines</span><span class="ex">INS Arihant · Arighaat · Kalvari class · Sindhughosh class · P-75I</span></div>
+          <div><span class="s">Amphibious &amp; Auxiliary</span><span class="ex">INS Jalashwa · Magar class · LPD programme · Fleet tankers</span></div>
+          <div><span class="s">Naval Aviation &amp; Weapons</span><span class="ex">MiG-29K · MH-60R Seahawk · Varunastra torpedo · Maareech decoy</span></div>
+        </div>
+      </div>
+
+      <div class="tax-card">
+        <div class="tax-head"><h3>Air Defence Systems</h3><span class="n">4 classes</span></div>
+        <div class="tax-sub">
+          <div><span class="s">Layered SAM Networks</span><span class="ex">S-400 Triumf · MRSAM · Akash · QRSAM · Project Kusha</span></div>
+          <div><span class="s">Ballistic Missile Defence</span><span class="ex">PAD · AAD · PDV · Swordfish LRTR</span></div>
+          <div><span class="s">Gun-Based &amp; Point Defence</span><span class="ex">L-70 upgraded · ZU-23-2B · Schilka · AK-630 CIWS</span></div>
+          <div><span class="s">Counter-Drone</span><span class="ex">D4 anti-drone system · Bhargavastra · DEW Mk-II(A)</span></div>
+        </div>
+      </div>
+
+      <div class="tax-card">
+        <div class="tax-head"><h3>Sensors, EW &amp; Space</h3><span class="n">4 classes</span></div>
+        <div class="tax-sub">
+          <div><span class="s">Radars</span><span class="ex">Rohini · Arudhra · Ashwini · Swathi · Uttam AESA</span></div>
+          <div><span class="s">Electronic Warfare</span><span class="ex">Samyukta · Himshakti · Shakti EW · DIRCM</span></div>
+          <div><span class="s">Military Satellites</span><span class="ex">GSAT-7 Rukmini · GSAT-7A · EMISAT · RISAT · Cartosat-3</span></div>
+          <div><span class="s">Navigation &amp; C4I</span><span class="ex">NavIC · AFNET · Akashteer · IACCS</span></div>
+        </div>
+      </div>
+
+      <div class="tax-card">
+        <div class="tax-head"><h3>Strategic &amp; Emerging</h3><span class="n">3 classes</span></div>
+        <div class="tax-sub">
+          <div><span class="s">Nuclear Triad</span><span class="ex">Land leg · Air leg · Sea leg (SSBN) · No-First-Use doctrine</span></div>
+          <div><span class="s">Directed Energy &amp; Novel</span><span class="ex">DEW Mk-II(A) laser · Mission Shakti ASAT</span></div>
+          <div><span class="s">Autonomy &amp; Swarms</span><span class="ex">ALFA-S swarm drones · Loitering munitions · Robotic mules</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col" style="margin-top:26px;">
+      <div class="callout stack-s">
+        <p class="label">Design rule</p>
+        <p class="small">
+          A system can appear under exactly one class (its <em class="term">home</em>), but carries tags that
+          surface it elsewhere. BrahMos lives under Cruise Missiles, and is tagged
+          <span class="mono">naval</span>, <span class="mono">air-launched</span>,
+          <span class="mono">anti-ship</span> so it also appears when browsing those. One home prevents
+          duplicate content; tags prevent the taxonomy from becoming a lie.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DATA MODEL ============ -->
+  <section>
+    <div class="col stack">
+      <p class="label">04 &nbsp;/&nbsp; Data model</p>
+      <h2>Shared fields, typed spec blocks</h2>
+      <p>
+        This is the single decision that determines whether comparison works or not. Every entry shares
+        an identical <em class="term">core</em>; the <em class="term">specs</em> block changes shape by
+        category, because a missile's range and a tank's armour thickness are not the same kind of fact.
+      </p>
+      <p>
+        Lock this schema early — around entry ten — because changing it after a hundred entries
+        means a hundred rewrites.
+      </p>
+    </div>
+
+    <div class="bleed code" style="margin-top:24px;">
+<pre><span class="c">// content/schema.ts  — the contract every entry must satisfy</span>
+
+<span class="k">const</span> <span class="n">Core</span> = z.object({
+  slug:         z.string(),              <span class="c">// brahmos-block-iii</span>
+  name:         z.string(),              <span class="c">// "BrahMos Block III"</span>
+  aliases:      z.array(z.string()),     <span class="c">// ["PJ-10"] — feeds search</span>
+  category:     Category,                <span class="c">// missiles | armour | artillery | ...</span>
+  class:        z.string(),              <span class="c">// cruise-missile</span>
+  tags:         z.array(z.string()),
+
+  origin:       z.array(z.string()),     <span class="c">// ["India", "Russia"]</span>
+  developer:    z.array(z.string()),     <span class="c">// ["DRDO", "NPOM"]</span>
+  manufacturer: z.array(z.string()),     <span class="c">// ["BrahMos Aerospace"]</span>
+  operators:    z.array(Service),        <span class="c">// army | navy | airforce | coastguard</span>
+
+  status:       z.enum([<span class="s">"in-service"</span>, <span class="s">"trials"</span>, <span class="s">"development"</span>,
+                        <span class="s">"ordered"</span>, <span class="s">"retired"</span>]),
+  inducted:     z.number().optional(),   <span class="c">// year — drives the timeline view</span>
+  quantity:     Estimate.optional(),     <span class="c">// numbers are rarely official</span>
+
+  summary:      z.string().max(<span class="s">280</span>),   <span class="c">// the one line shown on cards</span>
+  specs:        SpecBlock,               <span class="c">// ← discriminated by category</span>
+
+  ssb: z.object({
+    whyItMatters: z.string(),            <span class="c">// the interview angle</span>
+    hooks:        z.array(z.string()),   <span class="c">// memory aids: "Fastest cruise missile in service"</span>
+    likelyAsked:  z.array(z.string()),   <span class="c">// real PI-style questions</span>
+    confusedWith: z.array(z.string()),   <span class="c">// slugs — auto-builds a compare shortcut</span>
+  }),
+
+  sources:      z.array(Source).min(<span class="s">1</span>),  <span class="c">// url + publisher + accessed date</span>
+  lastVerified: z.string().date(),       <span class="c">// shown on the page. Non-negotiable.</span>
+});
+
+<span class="c">// Per-category spec blocks — this is what makes side-by-side comparison honest</span>
+<span class="k">const</span> <span class="n">SpecBlock</span> = z.discriminatedUnion(<span class="s">"category"</span>, [
+
+  <span class="c">/* missiles  */</span> z.object({ category: z.literal(<span class="s">"missiles"</span>),
+      range: Measure, speed: Measure, warhead: Measure, guidance: z.array(z.string()),
+      length: Measure, diameter: Measure, launchWeight: Measure,
+      propulsion: z.string(), platforms: z.array(z.string()) }),
+
+  <span class="c">/* armour    */</span> z.object({ category: z.literal(<span class="s">"armour"</span>),
+      weight: Measure, crew: z.number(), mainGun: z.string(), ammoCarried: z.number(),
+      enginePower: Measure, topSpeed: Measure, operationalRange: Measure,
+      armourType: z.string(), fireControl: z.string() }),
+
+  <span class="c">/* aircraft  */</span> z.object({ category: z.literal(<span class="s">"aircraft"</span>),
+      role: z.string(), crew: z.number(), maxSpeed: Measure, combatRadius: Measure,
+      serviceCeiling: Measure, payload: Measure, hardpoints: z.number(),
+      engines: z.string(), radar: z.string() }),
+
+  <span class="c">/* naval, artillery, smallarms, airdefence, sensors — same pattern */</span>
+]);
+
+<span class="c">// Defence figures are contested. Model that instead of pretending otherwise.</span>
+<span class="k">const</span> <span class="n">Measure</span> = z.object({
+  value:      z.number(),
+  unit:       z.string(),                <span class="c">// km | m/s | kg | mm | hp</span>
+  confidence: z.enum([<span class="s">"official"</span>, <span class="s">"reported"</span>, <span class="s">"estimated"</span>]),
+  note:       z.string().optional(),     <span class="c">// "290 km for export variant"</span>
+});</pre>
+    </div>
+
+    <div class="col stack" style="margin-top:26px;">
+      <div class="note stack-s">
+        <p class="label">Why <span class="mono">confidence</span> earns its place</p>
+        <p class="small">
+          Half of publicly available defence specifications are estimates or export-variant figures. A
+          site that prints them as hard fact will eventually mislead a candidate in an interview. Render
+          <span class="mono">official</span> plainly, <span class="mono">reported</span> and
+          <span class="mono">estimated</span> with a small marker and a tooltip. That single detail is
+          what will separate this from every scraped listicle site.
+        </p>
+      </div>
+      <p class="small muted">
+        Comparison then falls out for free: two entries with the same <span class="mono">category</span>
+        share a spec shape, so the compare table is a generic diff over the same keys. Cross-category
+        comparison is disabled by design — comparing a frigate to a rifle produces a table of blanks.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ UI ============ -->
+  <section>
+    <div class="col stack">
+      <p class="label">05 &nbsp;/&nbsp; Interface</p>
+      <h2>Navigation, entry page, compare</h2>
+      <p>
+        You asked for professional, smooth, aesthetic, and easy to compare. That resolves into four
+        specific pieces of interface, in this order of importance.
+      </p>
+    </div>
+
+    <div class="bleed stack" style="margin-top:26px;">
+
+      <div class="card stack-s">
+        <p class="label">Piece one · Navigation shell</p>
+        <h3>Persistent tree, always-available search</h3>
+        <p class="small muted">
+          A left rail holding the category tree, collapsed to the current branch, present on every page
+          so the student never loses their place. Breadcrumbs across the top
+          (<span class="mono">Missiles / Cruise / BrahMos</span>). A command palette on
+          <span class="mono">Ctrl-K</span> that searches names, aliases and summaries and is the fastest
+          path to anything. On mobile the rail becomes a sheet.
+        </p>
+      </div>
+
+      <div class="card stack-s">
+        <p class="label">Piece two · Entry page anatomy</p>
+        <h3>The same shape, every single time</h3>
+        <p class="small muted" style="margin-bottom:6px;">
+          Predictability is the feature. A student who has read three entries should know exactly where
+          to look on the fourth.
+        </p>
+        <div class="anatomy">
+          <div class="slab hero-slab"><span class="zone">Hero</span><span class="what">Name, service badges, status pill, origin flag, primary image</span></div>
+          <div class="slab"><span class="zone">At a glance</span><span class="what">Four to six headline stats as large tabular figures — the numbers an interviewer actually asks for</span></div>
+          <div class="slab"><span class="zone">Summary</span><span class="what">Two paragraphs: what it is, what problem it solves</span></div>
+          <div class="slab"><span class="zone">Specifications</span><span class="what">Full typed table with confidence markers and units</span></div>
+          <div class="slab"><span class="zone">Variants</span><span class="what">Horizontal timeline of blocks and marks, with what changed at each step</span></div>
+          <div class="slab"><span class="zone">In service</span><span class="what">Operators, platforms it launches from or carries, deployment notes</span></div>
+          <div class="slab hero-slab"><span class="zone">SSB angle</span><span class="what">Why it matters, memory hooks, likely questions, systems it is confused with</span></div>
+          <div class="slab"><span class="zone">Compare with</span><span class="what">Auto-generated from <span class="mono">confusedWith</span> plus same-class siblings</span></div>
+          <div class="slab"><span class="zone">Sources</span><span class="what">Citations and last-verified date</span></div>
+        </div>
+      </div>
+
+      <div class="card stack-s">
+        <p class="label">Piece three · Comparison</p>
+        <h3>A tray that follows you, a table that shows the delta</h3>
+        <p class="small muted">
+          A compare button on every card and entry page adds the item to a docked tray at the bottom of
+          the screen, up to four items. Opening the tray produces a side-by-side table where identical
+          values are dimmed and differing values are emphasised, with the strongest figure in each numeric
+          row marked. Rows can be filtered to differences only. The comparison state lives in the URL, so
+          a specific comparison is a shareable, bookmarkable link.
+        </p>
+      </div>
+
+      <div class="card stack-s">
+        <p class="label">Piece four · Learning layer</p>
+        <h3>What turns a database into study material</h3>
+        <ul class="dash">
+          <li><em class="term">Revision list</em> — star any entry; a dedicated page collects them.</li>
+          <li><em class="term">Flashcard mode</em> — generated automatically from spec fields and memory hooks. No separate authoring.</li>
+          <li><em class="term">Quick quiz</em> — multiple choice built by pulling the correct value and three wrong ones from sibling entries in the same class. Zero content cost, high study value.</li>
+          <li><em class="term">One-pager</em> — a print stylesheet that renders any entry as a clean single-sheet PDF.</li>
+          <li><em class="term">Recently viewed</em> — a strip on the home page so a session resumes where it stopped.</li>
+        </ul>
+      </div>
+
+      <div class="card stack-s">
+        <p class="label">Visual direction</p>
+        <h3>Technical, not tactical</h3>
+        <p class="small muted">
+          Resist camouflage patterns, stencil fonts and terminal-green. The reference points that read as
+          serious are aviation manuals, instrument panels and engineering drawings: a restrained cool-grey
+          ground, one confident accent, a technical sans for headings, a monospace for every number so
+          columns align. Dark mode first, since students study at night, with a proper light mode rather
+          than an inversion. Motion limited to what communicates — the compare tray sliding, a value
+          counting into place — never ambient decoration.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ PHASES ============ -->
+  <section>
+    <div class="col stack">
+      <p class="label">06 &nbsp;/&nbsp; Execution</p>
+      <h2>Eight phases to v1</h2>
+      <p>
+        Sequenced for one person working full-time. Durations are guides, not commitments — the
+        <em class="term">done when</em> line is the real gate. Phase 5 runs in parallel with everything
+        after Phase 3, because content is the long pole and cannot wait until the app is finished.
+      </p>
+    </div>
+
+    <div class="bleed spine" style="margin-top:26px;">
+
+      <div class="phase">
+        <div class="phase-num"><span class="p">0</span><span class="t">Days 1–4</span></div>
+        <div class="phase-body">
+          <h3>Foundation and vertical slice</h3>
+          <p class="goal">Prove the whole pipeline end to end on a single entry before building breadth.</p>
+          <ul class="dash">
+            <li><span class="mono">git init</span>, Next.js + TypeScript + Tailwind scaffold, shadcn/ui installed</li>
+            <li>Design tokens committed: colour scale, type scale, spacing, dark and light</li>
+            <li>Taxonomy written as a single <span class="mono">taxonomy.ts</span> file</li>
+            <li>One hand-written entry (BrahMos) rendering at its real route through the real layout</li>
+          </ul>
+          <p class="done"><b>DONE WHEN</b> &nbsp;<span class="mono">/missiles/cruise/brahmos</span> renders from a content file, in both themes, on desktop and phone.</p>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-num"><span class="p">1</span><span class="t">Week 1–2</span></div>
+        <div class="phase-body">
+          <h3>Data model and content engine</h3>
+          <p class="goal">Make adding an entry a five-minute job rather than a copy-paste ritual.</p>
+          <ul class="dash">
+            <li>Zod schemas for core plus the first four category spec blocks</li>
+            <li>Content loader with build-time parsing and typed access</li>
+            <li><span class="mono">npm run validate</span> — fails loudly on missing fields, bad units, unknown categories</li>
+            <li><span class="mono">npm run new</span> — a scaffolder that prompts for category and writes a pre-filled stub</li>
+            <li>Ten seed entries spanning three categories, to stress the schema while it is still cheap to change</li>
+          </ul>
+          <p class="done"><b>DONE WHEN</b> &nbsp;a new entry goes from idea to live page in under five minutes, and a malformed entry cannot reach the build.</p>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-num"><span class="p">2</span><span class="t">Week 2–3</span></div>
+        <div class="phase-body">
+          <h3>Browse and navigation</h3>
+          <p class="goal">Everything findable, from three different directions.</p>
+          <ul class="dash">
+            <li>Category and class routes with card grids, sorting, and pagination</li>
+            <li>Filter panel: service, origin, status, manufacturer, induction decade, numeric ranges</li>
+            <li>Sidebar tree, breadcrumbs, mobile navigation sheet</li>
+            <li>Command palette with MiniSearch over names, aliases and summaries</li>
+            <li>Home page: categories, recently added, recently viewed</li>
+          </ul>
+          <p class="done"><b>DONE WHEN</b> &nbsp;any seeded entry is reachable within three seconds by browsing, filtering, or search.</p>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-num"><span class="p">3</span><span class="t">Week 3–5</span></div>
+        <div class="phase-body">
+          <h3>Entry page and comparison</h3>
+          <p class="goal">The two screens the whole product is judged on.</p>
+          <ul class="dash">
+            <li>Full entry template — every zone from the anatomy above</li>
+            <li>Image pipeline with mandatory credit and licence metadata</li>
+            <li>Variants timeline component</li>
+            <li>Compare tray, up to four items, persisted in the URL</li>
+            <li>Side-by-side table with difference highlighting and a differences-only filter</li>
+            <li>Related and confused-with sections wired to the schema</li>
+          </ul>
+          <p class="done"><b>DONE WHEN</b> &nbsp;Akash and QRSAM can be placed side by side and the meaningful differences are obvious in under ten seconds.</p>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-num"><span class="p">4</span><span class="t">Week 5–6</span></div>
+        <div class="phase-body">
+          <h3>Learning layer</h3>
+          <p class="goal">Convert a reference site into something a student returns to daily.</p>
+          <ul class="dash">
+            <li>Revision list and starred entries in browser storage, with a dedicated page</li>
+            <li>Flashcard mode generated from spec fields and memory hooks</li>
+            <li>Auto-generated multiple-choice quiz per class, with a score summary</li>
+            <li>Print stylesheet producing a clean one-page PDF per entry</li>
+            <li>Progress indicators: entries viewed per category</li>
+          </ul>
+          <p class="done"><b>DONE WHEN</b> &nbsp;twenty starred entries can be revised in fifteen minutes without leaving the app.</p>
+        </div>
+      </div>
+
+      <div class="phase parallel">
+        <div class="phase-num"><span class="p">5</span><span class="t">Week 3–12</span></div>
+        <div class="phase-body">
+          <h3>Content scale-up &nbsp;<span class="mono small" style="color:var(--signal); letter-spacing:.08em;">// runs in parallel</span></h3>
+          <p class="goal">The real work. Start the moment the schema is locked, not when the app is finished.</p>
+          <ul class="dash">
+            <li><em class="term">Tier 1 — 60 entries.</em> The systems actually asked about in interviews: Agni series, BrahMos, Akash, S-400, Tejas, Rafale, Su-30MKI, Prachand, Arjun, T-90, K9 Vajra, ATAGS, Pinaka, INS Vikrant, Arihant, Kalvari, P-8I, AK-203, Nag, Rudram.</li>
+            <li><em class="term">Tier 2 — to 150.</em> Complete every class so no category looks abandoned.</li>
+            <li><em class="term">Tier 3 — to 300+.</em> Depth, variants, retired systems, foreign comparators.</li>
+            <li>Target roughly four to six finished entries per working day once the template is settled.</li>
+            <li>Weekly pass: check <span class="mono">lastVerified</span> dates and fold in new inductions.</li>
+          </ul>
+          <p class="done"><b>DONE WHEN</b> &nbsp;Tier 1 is complete and every one of those entries has sources, an image, and a filled SSB angle.</p>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-num"><span class="p">6</span><span class="t">Week 12–13</span></div>
+        <div class="phase-body">
+          <h3>Polish, performance, accessibility</h3>
+          <p class="goal">The difference between "a project" and "a product".</p>
+          <ul class="dash">
+            <li>Loading, empty and error states for every route; a real 404</li>
+            <li>Keyboard navigation throughout; visible focus; screen-reader labels on every icon control</li>
+            <li>Image optimisation pass; Lighthouse above 95 on performance and accessibility</li>
+            <li>Motion audit — remove anything decorative; honour reduced-motion</li>
+            <li>Cross-checking pass on fifty random specs against sources</li>
+          </ul>
+          <p class="done"><b>DONE WHEN</b> &nbsp;you can hand the laptop to a friend preparing for SSB and they need no explanation to use it.</p>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-num"><span class="p">7</span><span class="t">Later</span></div>
+        <div class="phase-body">
+          <h3>Optional — take it public</h3>
+          <p class="goal">Only once Tier 1 content is done. A thin site launched early gets no second chance at a first impression.</p>
+          <ul class="dash">
+            <li>Deploy to Vercel; buy a domain</li>
+            <li>SEO groundwork: per-entry metadata, structured data, sitemap, Open Graph cards generated per entry</li>
+            <li>Analytics and a correction-report button on every page</li>
+            <li>Only then consider accounts, cross-device sync, and a community layer</li>
+          </ul>
+          <p class="done"><b>DONE WHEN</b> &nbsp;an organic search for a specific system brings a stranger to your page.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ CONTENT PIPELINE ============ -->
+  <section>
+    <div class="col stack">
+      <p class="label">07 &nbsp;/&nbsp; Content discipline</p>
+      <h2>Sourcing rules, set once</h2>
+      <p>
+        Content is where this project succeeds or quietly dies. Two rules protect it.
+      </p>
+      <p>
+        <em class="term">Public sources only.</em> Everything an SSB interview tests is openly published —
+        Press Information Bureau releases, Ministry of Defence year-end reviews, DRDO, HAL, BEL and BDL
+        product pages, the three service websites, and established defence journalism. That is more than
+        enough. Do not chase leaked, classified or restricted material: it is not needed, it is not legal
+        to republish, and it destroys the credibility the site depends on.
+      </p>
+      <p>
+        <em class="term">Every entry cites and dates itself.</em> One source minimum, a
+        <span class="mono">lastVerified</span> date rendered on the page. When a figure is disputed, show the
+        range and mark the confidence rather than picking one and sounding certain.
+      </p>
+      <div class="callout stack-s" style="margin-top:6px;">
+        <p class="label">Images</p>
+        <p class="small">
+          The easiest thing to get wrong. Use PIB and Ministry of Defence photographs under the
+          Government Open Data Licence – India, or Wikimedia Commons files with their attribution
+          preserved. Store <span class="mono">credit</span> and <span class="mono">license</span> as
+          required fields so the validator refuses an uncredited image. Where nothing usable exists,
+          a clean vector silhouette often reads better than a poor photograph anyway.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RISKS ============ -->
+  <section>
+    <div class="col stack">
+      <p class="label">08 &nbsp;/&nbsp; Risk register</p>
+      <h2>What actually kills projects like this</h2>
+    </div>
+
+    <div class="bleed tbl-wrap" style="margin-top:24px;">
+      <table>
+        <thead>
+          <tr><th>Risk</th><th style="width:88px;">Level</th><th>Mitigation</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Content burnout at entry 40</td>
+            <td><span class="sev sev-hi">High</span></td>
+            <td>Ship sixty excellent entries rather than three hundred thin ones. Fix a daily quota you can hit on a bad day and stop when you hit it.</td>
+          </tr>
+          <tr>
+            <td>Schema churn after mass authoring</td>
+            <td><span class="sev sev-hi">High</span></td>
+            <td>Lock the schema at ten entries. After that, changes ship with a migration script — never a hundred manual edits.</td>
+          </tr>
+          <tr>
+            <td>Scope creep into full SSB prep</td>
+            <td><span class="sev sev-hi">High</span></td>
+            <td>Psychology tests, GTO tasks and mock interviews are a different product. Keep a parked-ideas file and put them in it.</td>
+          </tr>
+          <tr>
+            <td>Polishing the interface before content exists</td>
+            <td><span class="sev sev-mid">Medium</span></td>
+            <td>Phase 5 starts in week 3 on purpose. An empty beautiful site is worth less than a plain full one.</td>
+          </tr>
+          <tr>
+            <td>Specifications going stale</td>
+            <td><span class="sev sev-mid">Medium</span></td>
+            <td><span class="mono">lastVerified</span> on every entry; a build warning past twelve months; a weekly review slot.</td>
+          </tr>
+          <tr>
+            <td>Image licensing problems</td>
+            <td><span class="sev sev-mid">Medium</span></td>
+            <td>Required credit and licence fields enforced by the validator, from the very first image.</td>
+          </tr>
+          <tr>
+            <td>Publishing an incorrect figure</td>
+            <td><span class="sev sev-mid">Medium</span></td>
+            <td>Confidence markers, visible sources, and a correction-report control once the site is public.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ NEXT ============ -->
+  <section>
+    <div class="col stack">
+      <p class="label">09 &nbsp;/&nbsp; Start here</p>
+      <h2>The first four moves</h2>
+      <p class="muted">Everything above is planning. These are the things to do today.</p>
+    </div>
+
+    <div class="bleed actions" style="margin-top:24px;">
+      <div class="action">
+        <div class="stack-s">
+          <h4>Write the taxonomy file before writing any code</h4>
+          <p class="small muted">Every category, every class, final slugs. An hour spent here saves a week of renaming routes later.</p>
+        </div>
+      </div>
+      <div class="action">
+        <div class="stack-s">
+          <h4>Hand-write three entries in a plain text file</h4>
+          <p class="small muted">A missile, a tank, and a fighter. Written as prose and figures, no schema yet. The fields you naturally reach for <em>are</em> the schema.</p>
+        </div>
+      </div>
+      <div class="action">
+        <div class="stack-s">
+          <h4>Build the vertical slice — Phase 0</h4>
+          <p class="small muted">One entry, one real route, real layout, both themes. Do not start a second entry until the first page looks like something you would show a friend.</p>
+        </div>
+      </div>
+      <div class="action">
+        <div class="stack-s">
+          <h4>Lock the schema and start Tier 1 content</h4>
+          <p class="small muted">From week three, content runs every single day alongside whatever feature you are building.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col" style="margin-top:26px;">
+      <div class="note stack-s">
+        <p class="label">The one sentence to keep</p>
+        <p>
+          Sixty systems covered properly — sourced, dated, compared, with the interview angle written
+          out — is a genuinely useful study tool. Three hundred half-filled stubs is a database
+          nobody trusts. Build the first one.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p class="mono small">Shastra Codex · build roadmap v1 · prepared 28 August 2026</p>
+  </footer>
+
+</div>
+
+</body></html>
