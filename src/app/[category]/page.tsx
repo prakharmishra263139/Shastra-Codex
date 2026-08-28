@@ -3,8 +3,9 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { TAXONOMY, getCategory } from "@/content/taxonomy";
 import { classCounts, entriesByCategory } from "@/content";
+import { toBrowseItems } from "@/lib/browse";
 import { Breadcrumbs } from "@/components/breadcrumbs";
-import { EntryCard } from "@/components/entry-card";
+import { EntryBrowser } from "@/components/browse/entry-browser";
 
 export function generateStaticParams() {
   return TAXONOMY.map((c) => ({ category: c.slug }));
@@ -25,10 +26,10 @@ export default async function CategoryPage({ params }: PageProps<"/[category]">)
   if (!found) notFound();
 
   const counts = classCounts(found.slug);
-  const entries = entriesByCategory(found.slug);
+  const items = toBrowseItems(entriesByCategory(found.slug));
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-10">
+    <div className="px-4 py-10 sm:px-6">
       <Breadcrumbs trail={[{ label: "Codex", href: "/" }, { label: found.name }]} />
 
       <header className="mt-6 max-w-2xl">
@@ -75,15 +76,13 @@ export default async function CategoryPage({ params }: PageProps<"/[category]">)
         </div>
       </section>
 
-      {entries.length > 0 && (
+      {items.length > 0 && (
         <section className="mt-14">
           <h2 className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-3 pb-4 border-b border-rule">
             All {found.name.toLowerCase()}
           </h2>
-          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {entries.map((entry) => (
-              <EntryCard key={entry.slug} entry={entry} />
-            ))}
+          <div className="mt-6">
+            <EntryBrowser items={items} />
           </div>
         </section>
       )}

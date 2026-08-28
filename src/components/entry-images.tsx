@@ -74,8 +74,8 @@ export function ImageGallery({ images }: { images: ImageRef[] }) {
   );
 }
 
-/** Small thumbnail used on browse cards. */
-export function CardThumbnail({ image }: { image: ImageRef }) {
+/** Small thumbnail used on browse cards. Credit lives on the entry page. */
+export function CardThumbnail({ image }: { image: Pick<ImageRef, "src"> }) {
   return (
     <div className="relative -mx-5 -mt-5 mb-1 aspect-[16/9] overflow-hidden rounded-t-md border-b border-rule bg-surface-2">
       <Image

@@ -76,6 +76,42 @@ export function compareCandidates(entry: Entry): Entry[] {
   return [...picked.values()];
 }
 
+export interface NavClass {
+  slug: string;
+  name: string;
+  count: number;
+}
+
+export interface NavCategory {
+  slug: string;
+  name: string;
+  count: number;
+  classes: NavClass[];
+}
+
+/**
+ * The whole taxonomy with counts, flattened to plain objects so the sidebar —
+ * a client component, because it highlights the active route — can receive it
+ * as props without pulling the content layer into the browser bundle.
+ */
+export function navTree(): NavCategory[] {
+  const categories = categoryCounts();
+
+  return TAXONOMY.map((category) => {
+    const classes = classCounts(category.slug);
+    return {
+      slug: category.slug,
+      name: category.name,
+      count: categories[category.slug] ?? 0,
+      classes: category.classes.map((k) => ({
+        slug: k.slug,
+        name: k.name,
+        count: classes[k.slug] ?? 0,
+      })),
+    };
+  });
+}
+
 /** Categories that actually have content — used to avoid linking to empty shelves. */
 export function populatedCategories(): Category[] {
   const counts = categoryCounts();

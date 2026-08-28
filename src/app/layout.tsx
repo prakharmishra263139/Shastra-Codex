@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Archivo, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import { allEntries, navTree } from "@/content";
+import { toBrowseItems } from "@/lib/browse";
+import { AppHeader } from "@/components/nav/app-header";
+import { SidebarNav } from "@/components/nav/sidebar-nav";
 import "./globals.css";
 
 const archivo = Archivo({
@@ -31,30 +34,24 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
+  const tree = navTree();
+  const items = toBrowseItems(allEntries);
+
   return (
     <html
       lang="en"
       className={`${archivo.variable} ${plexSans.variable} ${plexMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <header className="border-b border-rule">
-          <div className="mx-auto max-w-6xl px-6 h-14 flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2.5 group">
-              <span className="h-3.5 w-3.5 rounded-[2px] bg-accent" aria-hidden />
-              <span className="font-display font-bold tracking-tight text-[15px]">
-                Shastra Codex
-              </span>
-            </Link>
-            <span className="font-mono text-[11px] tracking-[0.14em] uppercase text-ink-3">
-              Defence Equipment Reference
-            </span>
-          </div>
-        </header>
+        <AppHeader tree={tree} items={items} />
 
-        <main className="flex-1">{children}</main>
+        <div className="mx-auto flex w-full max-w-[1400px] flex-1">
+          <SidebarNav tree={tree} />
+          <main className="min-w-0 flex-1">{children}</main>
+        </div>
 
         <footer className="border-t border-rule mt-16">
-          <div className="mx-auto max-w-6xl px-6 py-8 font-mono text-[11px] text-ink-3 leading-relaxed">
+          <div className="mx-auto max-w-[1400px] px-6 py-8 font-mono text-[11px] text-ink-3 leading-relaxed">
             <p>
               Compiled from publicly available sources. Every figure carries a
               confidence marker and a verification date.

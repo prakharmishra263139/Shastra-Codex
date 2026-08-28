@@ -1,13 +1,20 @@
 import Link from "next/link";
 import { TAXONOMY, allEntries, categoryCounts } from "@/content";
+import { toBrowseItems } from "@/lib/browse";
 import { EntryCard } from "@/components/entry-card";
+import { RecentlyViewed } from "@/components/nav/recently-viewed";
 
 export default function HomePage() {
   const counts = categoryCounts();
   const total = allEntries.length;
 
+  /** Freshest verification first — the home page should show live content. */
+  const recentlyAdded = toBrowseItems(allEntries)
+    .sort((a, b) => b.lastVerified.localeCompare(a.lastVerified) || a.name.localeCompare(b.name))
+    .slice(0, 6);
+
   return (
-    <div className="mx-auto max-w-6xl px-6">
+    <div className="px-4 sm:px-6">
       <section className="py-16 max-w-2xl">
         <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-accent">
           Indian Defence Equipment
@@ -22,9 +29,12 @@ export default function HomePage() {
           the Indian Armed Forces — sourced, dated, and built to compare side by side.
         </p>
         <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-3 tabular">
-          {total} {total === 1 ? "entry" : "entries"} · {TAXONOMY.length} categories
+          {total} {total === 1 ? "entry" : "entries"} · {TAXONOMY.length} categories · press
+          Ctrl-K to search
         </p>
       </section>
+
+      <RecentlyViewed />
 
       <section className="pb-16">
         <h2 className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-3 pb-4 border-b border-rule">
@@ -73,11 +83,11 @@ export default function HomePage() {
 
       <section className="pb-16">
         <h2 className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-3 pb-4 border-b border-rule">
-          In the codex
+          Recently added
         </h2>
         <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {allEntries.map((entry) => (
-            <EntryCard key={entry.slug} entry={entry} />
+          {recentlyAdded.map((item) => (
+            <EntryCard key={item.slug} item={item} />
           ))}
         </div>
       </section>
