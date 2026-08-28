@@ -59,7 +59,8 @@ function Browser({ items, facetKeys }: { items: BrowseItem[]; facetKeys: readonl
       mutate(next);
       next.delete("page"); // any change to the result set invalidates the page number
       const query = next.toString();
-      router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+      // push, not replace: a filter change is a place the reader can go back from
+      router.push(query ? `${pathname}?${query}` : pathname, { scroll: false });
     },
     [params, pathname, router],
   );
