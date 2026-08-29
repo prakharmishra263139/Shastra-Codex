@@ -55,10 +55,13 @@ export function SpecTable({ entry }: { entry: Entry }) {
   // The generic block is a label/value list rather than named fields.
   if ("fields" in specs) {
     return (
-      <dl className="divide-y divide-rule-soft border-y border-rule">
+      <dl className="divide-y divide-rule-soft">
         {specs.fields.map((f, i) => (
-          <div key={i} className="grid grid-cols-[minmax(0,10rem)_1fr] gap-4 py-3">
-            <dt className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-3 pt-0.5">
+          <div
+            key={i}
+            className="grid grid-cols-[minmax(0,11rem)_1fr] gap-4 px-5 py-3.5 transition-colors hover:bg-surface-2/60"
+          >
+            <dt className="pt-0.5 font-mono text-[10.5px] uppercase tracking-[0.14em] text-ink-3">
               {f.label}
             </dt>
             <dd className="text-[15px]">
@@ -76,10 +79,13 @@ export function SpecTable({ entry }: { entry: Entry }) {
   const rows = Object.entries(specs).filter(([key]) => key !== "category");
 
   return (
-    <dl className="divide-y divide-rule-soft border-y border-rule">
+    <dl className="divide-y divide-rule-soft">
       {rows.map(([key, value]) => (
-        <div key={key} className="grid grid-cols-[minmax(0,10rem)_1fr] gap-4 py-3">
-          <dt className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-3 pt-0.5">
+        <div
+          key={key}
+          className="grid grid-cols-[minmax(0,11rem)_1fr] gap-4 px-5 py-3.5 transition-colors hover:bg-surface-2/60"
+        >
+          <dt className="pt-0.5 font-mono text-[10.5px] uppercase tracking-[0.14em] text-ink-3">
             {labelFor(key)}
           </dt>
           <dd className="text-[15px]">

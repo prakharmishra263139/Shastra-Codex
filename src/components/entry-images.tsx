@@ -26,27 +26,6 @@ function Credit({ image }: { image: ImageRef }) {
   );
 }
 
-/** Lead image on an entry page. Sits between the hero text and the headline stats. */
-export function HeroImage({ image }: { image: ImageRef }) {
-  return (
-    <figure>
-      <div className="relative aspect-[16/9] w-full overflow-hidden rounded-md border border-rule bg-surface-2">
-        <Image
-          src={image.src}
-          alt={image.alt}
-          fill
-          priority
-          sizes="(max-width: 1152px) 100vw, 1088px"
-          className="object-cover"
-        />
-      </div>
-      <figcaption>
-        <Credit image={image} />
-      </figcaption>
-    </figure>
-  );
-}
-
 /** Everything after the lead image. */
 export function ImageGallery({ images }: { images: ImageRef[] }) {
   if (images.length === 0) return null;
@@ -74,17 +53,48 @@ export function ImageGallery({ images }: { images: ImageRef[] }) {
   );
 }
 
-/** Small thumbnail used on browse cards. Credit lives on the entry page. */
+/**
+ * Small thumbnail used on browse cards. Credit lives on the entry page.
+ * The card owns the rounding and the border; this only fills its slot.
+ */
 export function CardThumbnail({ image }: { image: Pick<ImageRef, "src"> }) {
   return (
-    <div className="relative -mx-5 -mt-5 mb-1 aspect-[16/9] overflow-hidden rounded-t-md border-b border-rule bg-surface-2">
+    <div className="relative aspect-[16/9] shrink-0 overflow-hidden border-b border-rule bg-surface-2">
       <Image
         src={image.src}
         alt=""
         fill
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        className="object-cover"
+        className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
       />
+    </div>
+  );
+}
+
+/**
+ * Stand-in for a card whose entry has no photograph yet.
+ *
+ * It fills exactly the slot a thumbnail would, because a grid mixing cards
+ * that have a picture with cards that do not leaves a hole in the middle of
+ * every second card. Deliberately a drawing rather than a stock photograph:
+ * the site does not put a picture of the wrong aeroplane on an entry to
+ * even the grid up.
+ */
+export function CardThumbnailPlaceholder() {
+  return (
+    <div
+      aria-hidden
+      className="blueprint relative flex aspect-[16/9] shrink-0 items-center justify-center overflow-hidden border-b border-rule bg-surface-2/50"
+    >
+      <svg viewBox="0 0 16 16" fill="none" className="h-7 w-7 opacity-25">
+        <path
+          d="M8 1.2 14 4v4.6c0 3.2-2.4 5.6-6 6.9-3.6-1.3-6-3.7-6-6.9V4l6-2.8Z"
+          stroke="var(--ink-3)"
+          strokeWidth="1.1"
+          strokeLinejoin="round"
+        />
+        <path d="M8 5.2v5.4M5.6 7.6h4.8" stroke="var(--ink-3)" strokeWidth="1.1" />
+      </svg>
     </div>
   );
 }

@@ -2,7 +2,10 @@ import Link from "next/link";
 import type { Entry } from "@/content/schema";
 import type { BrowseItem } from "@/lib/browse";
 import { formatStatus } from "@/lib/format";
-import { CardThumbnail } from "@/components/entry-images";
+import {
+  CardThumbnail,
+  CardThumbnailPlaceholder,
+} from "@/components/entry-images";
 
 export function StatusPill({ status }: { status: Entry["status"] | string }) {
   const tone =
@@ -14,33 +17,51 @@ export function StatusPill({ status }: { status: Entry["status"] | string }) {
 
   return (
     <span
-      className={`font-mono text-[10px] uppercase tracking-[0.1em] px-2 py-0.5 rounded-[3px] whitespace-nowrap ${tone}`}
+      className={`whitespace-nowrap rounded-[3px] px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.1em] ${tone}`}
     >
       {formatStatus(status)}
     </span>
   );
 }
 
+/**
+ * The card used everywhere a list of entries appears. The photograph does the
+ * recognising and the class label does the placing, so a reader landing on a
+ * grid mid-site still knows what they are looking at.
+ */
 export function EntryCard({ item }: { item: BrowseItem }) {
   return (
     <Link
       href={item.href}
-      className="group flex flex-col gap-2.5 rounded-md border border-rule bg-surface p-5 transition-colors hover:border-accent"
+      className="group flex flex-col overflow-hidden rounded-lg border border-rule bg-surface shadow-[var(--shadow-card)] transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:shadow-[var(--shadow-lift)]"
     >
-      {item.image && <CardThumbnail image={item.image} />}
+      {item.image ? <CardThumbnail image={item.image} /> : <CardThumbnailPlaceholder />}
 
-      <div className="flex items-start justify-between gap-3">
-        <h3 className="font-display font-semibold text-[17px] leading-tight tracking-tight group-hover:text-accent transition-colors">
+      <div className="flex min-w-0 flex-1 flex-col p-5">
+        <div className="flex items-center justify-between gap-3">
+          <span className="truncate font-mono text-[10px] uppercase tracking-[0.14em] text-ink-3">
+            {item.className}
+          </span>
+          <StatusPill status={item.status} />
+        </div>
+
+        <h3 className="mt-3 font-display text-[18px] font-semibold leading-tight tracking-[-0.02em] transition-colors group-hover:text-accent">
           {item.name}
         </h3>
-        <StatusPill status={item.status} />
-      </div>
 
-      <p className="text-[13.5px] leading-relaxed text-ink-2">{item.summary}</p>
+        <p className="mt-2 text-[13.5px] leading-relaxed text-ink-2">{item.summary}</p>
 
-      <div className="mt-auto pt-2 flex flex-wrap gap-x-3 gap-y-1 font-mono text-[11px] text-ink-3">
-        <span>{item.origin.join(" / ")}</span>
-        {item.inducted && <span className="tabular">Inducted {item.inducted}</span>}
+        <div className="mt-auto flex flex-wrap items-center gap-x-3 gap-y-1 pt-5 font-mono text-[11px] text-ink-3">
+          <span className="truncate">{item.origin.join(" / ")}</span>
+          {item.inducted && (
+            <>
+              <span aria-hidden className="text-rule">
+                ·
+              </span>
+              <span className="tabular">Inducted {item.inducted}</span>
+            </>
+          )}
+        </div>
       </div>
     </Link>
   );

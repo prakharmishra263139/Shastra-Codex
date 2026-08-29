@@ -90,7 +90,7 @@ export function CommandPalette({
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-black/55 px-4 pt-[12vh]"
+      className="fixed inset-0 z-50 bg-black/60 px-4 pt-[12vh] backdrop-blur-sm"
       onClick={onClose}
       role="presentation"
     >
@@ -98,7 +98,7 @@ export function CommandPalette({
         role="dialog"
         aria-modal="true"
         aria-label="Search the codex"
-        className="mx-auto w-full max-w-xl overflow-hidden rounded-md border border-rule bg-surface shadow-2xl"
+        className="mx-auto w-full max-w-xl overflow-hidden rounded-xl border border-rule bg-surface shadow-[var(--shadow-lift)]"
         onClick={(event) => event.stopPropagation()}
         onKeyDown={onKeyDown}
       >

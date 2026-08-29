@@ -1,9 +1,12 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { FORCES, getForce, unitsByForce } from "@/content/units";
 import { allEntries } from "@/content";
 import { toBrowseItems } from "@/lib/browse";
 import { Breadcrumbs } from "@/components/breadcrumbs";
+import { Wrap, Eyebrow, SectionHeader } from "@/components/layout/section";
+import { PhotoMasthead } from "@/components/layout/masthead";
 import { UnitCard } from "@/components/unit-card";
 import { EntryCard } from "@/components/entry-card";
 
@@ -31,56 +34,130 @@ export default async function ForcePage({ params }: PageProps<"/forces/[force]">
   );
 
   return (
-    <div className="px-4 py-10 sm:px-6">
-      <Breadcrumbs
-        trail={[
-          { label: "Home", href: "/" },
-          { label: "Forces", href: "/forces" },
-          { label: found.name },
-        ]}
-      />
+    <div className="toned" style={{ "--tone": found.tone } as React.CSSProperties}>
+      {/* ---------------------------------------------------------------- */}
+      {/* Masthead — the photograph sits behind the title, not beside it */}
+      {/* ---------------------------------------------------------------- */}
+      <PhotoMasthead
+        image={found.image}
+        minHeight="min-h-[26rem] sm:min-h-[32rem]"
+      >
+        <Breadcrumbs
+          trail={[
+            { label: "Home", href: "/" },
+            { label: "Forces", href: "/forces" },
+            { label: found.name },
+          ]}
+        />
 
-      <header className="mt-6 max-w-2xl">
-        <h1 className="font-display font-bold text-3xl sm:text-4xl tracking-[-0.025em]">
+        <h1 className="mt-6 font-display text-[clamp(2.5rem,6vw,4.5rem)] font-bold leading-[1] tracking-[-0.04em]">
           {found.name}
         </h1>
-        <p className="mt-3 text-[16px] leading-relaxed text-ink-2">{found.blurb}</p>
-      </header>
 
-      <section className="mt-12">
-        <h2 className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-3 pb-4 border-b border-rule">
-          {found.unitLabel}
-        </h2>
+        <p className="mt-5 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+          <span lang="sa" className="text-[18px] text-ink">
+            {found.motto.text}
+          </span>
+          <span className="font-mono text-[11px] uppercase tracking-[0.12em] tone-text">
+            {found.motto.translation}
+          </span>
+        </p>
+
+        <p className="mt-6 max-w-[58ch] text-[17px] leading-relaxed text-ink-2">
+          {found.blurb}
+        </p>
+      </PhotoMasthead>
+
+      <Wrap wide className="pb-4">
+        <dl className="grid grid-cols-[repeat(auto-fit,minmax(10rem,1fr))] gap-px overflow-hidden rounded-lg border border-rule bg-rule">
+          {[
+            [found.unitLabel, String(units.length)],
+            ["Equipment operated", String(equipment.length)],
+            ["In service", String(equipment.filter((e) => e.status === "in-service").length)],
+            ["Categories", String(new Set(equipment.map((e) => e.category)).size)],
+          ].map(([label, value]) => (
+            <div key={label} className="bg-surface p-5">
+              <dt className="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-3">
+                {label}
+              </dt>
+              <dd className="mt-2 font-display text-[26px] font-bold tabular leading-none tracking-[-0.03em]">
+                {value}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </Wrap>
+
+      {/* ---------------------------------------------------------------- */}
+      <Wrap wide className="py-14 sm:py-16">
+        <SectionHeader
+          toned
+          index="01"
+          eyebrow={found.unitLabel}
+          title={`How the ${found.shortName} is organised`}
+          lede={found.tagline}
+        />
 
         {units.length > 0 ? (
-          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {units.map((unit) => (
               <UnitCard key={unit.slug} unit={unit} />
             ))}
           </div>
         ) : (
-          <div className="mt-6 rounded-md border border-dashed border-rule p-10 text-center">
-            <p className="font-display font-semibold text-[16px]">Nothing here yet</p>
+          <div className="mt-8 rounded-lg border border-dashed border-rule p-12 text-center">
+            <p className="font-display text-[17px] font-semibold">Nothing here yet</p>
             <p className="mt-2 text-[14px] text-ink-2">
-              No {found.unitLabel.toLowerCase()} have been written up for the {found.name}{" "}
-              so far.
+              No {found.unitLabel.toLowerCase()} have been written up for the{" "}
+              {found.name} so far.
             </p>
           </div>
         )}
-      </section>
+      </Wrap>
 
       {equipment.length > 0 && (
-        <section className="mt-14">
-          <h2 className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-3 pb-4 border-b border-rule">
-            Equipment operated by the {found.name}
-          </h2>
-          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <Wrap wide className="pb-20">
+          <SectionHeader
+            toned
+            index="02"
+            eyebrow="Inventory"
+            title={`Equipment operated by the ${found.shortName}`}
+            lede={`${equipment.length} ${equipment.length === 1 ? "entry" : "entries"} in the codex list the ${found.name} as an operator.`}
+            action={{ label: "Browse everything", href: "/browse" }}
+          />
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {equipment.map((item) => (
               <EntryCard key={item.slug} item={item} />
             ))}
           </div>
-        </section>
+        </Wrap>
       )}
+
+      {/* A quiet way out of a leaf page. */}
+      <Wrap wide className="pb-8">
+        <nav
+          aria-label="Other services"
+          className="flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-rule pt-8"
+        >
+          <Eyebrow>Other services</Eyebrow>
+          {FORCES.filter((f) => f.slug !== found.slug).map((other) => (
+            <Link
+              key={other.slug}
+              href={`/forces/${other.slug}`}
+              className="group font-display text-[16px] font-semibold tracking-[-0.02em] text-ink-2 transition-colors hover:text-[var(--tone)]"
+              style={{ "--tone": other.tone } as React.CSSProperties}
+            >
+              {other.name}
+              <span
+                aria-hidden
+                className="ml-2 inline-block transition-transform group-hover:translate-x-1"
+              >
+                →
+              </span>
+            </Link>
+          ))}
+        </nav>
+      </Wrap>
     </div>
   );
 }

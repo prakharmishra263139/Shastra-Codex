@@ -1,8 +1,10 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { allUnits, getForce } from "@/content/units";
+import { allUnits, getForce, unitsByForce } from "@/content/units";
 import type { Unit } from "@/content/units/schema";
 import { Breadcrumbs } from "@/components/breadcrumbs";
+import { Wrap, Eyebrow, SubHeading } from "@/components/layout/section";
 
 export function generateStaticParams() {
   return allUnits.map((u) => ({ force: u.force, unit: u.slug }));
@@ -23,14 +25,6 @@ export async function generateMetadata({
   return { title: unit.name, description: unit.summary };
 }
 
-function SectionHeading({ children }: { children: React.ReactNode }) {
-  return (
-    <h2 className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-3 pb-3 border-b border-rule">
-      {children}
-    </h2>
-  );
-}
-
 export default async function UnitPage({
   params,
 }: PageProps<"/forces/[force]/[unit]">) {
@@ -39,115 +33,163 @@ export default async function UnitPage({
   if (!unit) notFound();
 
   const forceInfo = getForce(unit.force);
+  const siblings = unitsByForce(unit.force).filter((u) => u.slug !== unit.slug);
 
   const facts = [
     ["Type", TYPE_LABEL[unit.type]],
     ["Force", forceInfo?.name ?? unit.force],
     ["Headquarters", unit.hq ?? ""],
     ["Raised", unit.raised ? String(unit.raised) : ""],
-    ["Role", unit.role],
   ] as const;
 
   return (
-    <article className="max-w-5xl px-4 py-10 sm:px-6">
-      <Breadcrumbs
-        trail={[
-          { label: "Home", href: "/" },
-          { label: "Forces", href: "/forces" },
-          { label: forceInfo?.name ?? unit.force, href: `/forces/${unit.force}` },
-          { label: unit.name },
-        ]}
-      />
+    <article
+      className="toned pb-8"
+      style={{ "--tone": forceInfo?.tone ?? "var(--accent)" } as React.CSSProperties}
+    >
+      {/* A tone-coloured band instead of a photograph — units have no imagery,
+          and a stock picture would be worse than none. */}
+      <div aria-hidden className="tone-bg h-1 w-full" />
 
-      <header className="mt-6 max-w-3xl">
-        <span className="font-mono text-[10px] uppercase tracking-[0.1em] px-2 py-0.5 rounded-[3px] bg-surface-2 text-ink-2">
-          {TYPE_LABEL[unit.type]}
-        </span>
+      <Wrap className="pt-12 sm:pt-14">
+        <Breadcrumbs
+          trail={[
+            { label: "Home", href: "/" },
+            { label: "Forces", href: "/forces" },
+            { label: forceInfo?.name ?? unit.force, href: `/forces/${unit.force}` },
+            { label: unit.name },
+          ]}
+        />
 
-        <h1 className="mt-4 font-display font-bold text-4xl sm:text-5xl tracking-[-0.03em] leading-[1.03]">
-          {unit.name}
-        </h1>
+        <header className="mt-8 max-w-[52ch]">
+          <Eyebrow toned>
+            {forceInfo?.name ?? unit.force} · {TYPE_LABEL[unit.type]}
+          </Eyebrow>
 
-        {unit.aliases.length > 0 && (
-          <p className="mt-2.5 font-mono text-[12px] text-ink-3">
-            Also known as {unit.aliases.join(" · ")}
-          </p>
-        )}
+          <h1 className="mt-5 font-display text-[clamp(2.25rem,5.5vw,3.75rem)] font-bold leading-[1.02] tracking-[-0.04em]">
+            {unit.name}
+          </h1>
 
-        <p className="mt-5 text-[17px] leading-relaxed text-ink-2">{unit.summary}</p>
-      </header>
+          {unit.aliases.length > 0 && (
+            <p className="mt-3 font-mono text-[12px] text-ink-3">
+              Also known as {unit.aliases.join(" · ")}
+            </p>
+          )}
 
-      <section className="mt-10">
-        <div className="grid gap-px bg-rule border border-rule rounded-md overflow-hidden sm:grid-cols-2 lg:grid-cols-4">
+          <p className="mt-6 text-[17px] leading-[1.7] text-ink-2">{unit.summary}</p>
+        </header>
+
+        <dl className="mt-10 grid grid-cols-[repeat(auto-fit,minmax(10rem,1fr))] gap-px overflow-hidden rounded-lg border border-rule bg-rule">
           {facts
             .filter(([, value]) => value)
             .map(([label, value]) => (
               <div key={label} className="bg-surface p-5">
-                <p className="font-mono text-[10.5px] uppercase tracking-[0.12em] text-ink-3">
+                <dt className="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-3">
                   {label}
-                </p>
-                <p className="mt-2 font-display font-semibold text-[18px] tracking-tight leading-tight">
+                </dt>
+                <dd className="mt-2 font-display text-[17px] font-semibold leading-tight tracking-[-0.02em]">
                   {value}
-                </p>
+                </dd>
               </div>
             ))}
-        </div>
-      </section>
+        </dl>
+      </Wrap>
 
-      <div className="mt-14 grid gap-14 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-x-16">
-        <div className="flex flex-col gap-14 min-w-0">
-          <section>
-            <SectionHeading>Overview</SectionHeading>
-            <div className="mt-5 flex flex-col gap-4 max-w-[68ch]">
-              {unit.description.map((para, i) => (
-                <p key={i} className="text-[16px] leading-[1.7] text-ink-2">
-                  {para}
-                </p>
-              ))}
-            </div>
-          </section>
-
-          {unit.hooks.length > 0 && (
+      <Wrap className="mt-14">
+        <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-x-16">
+          <div className="flex min-w-0 flex-col gap-14">
             <section>
-              <SectionHeading>Memory hooks</SectionHeading>
-              <ul className="mt-5 flex flex-col gap-2">
-                {unit.hooks.map((hook, i) => (
-                  <li key={i} className="flex gap-3 text-[15px] leading-relaxed">
-                    <span className="text-accent mt-0.5" aria-hidden>
-                      ▸
-                    </span>
-                    <span>{hook}</span>
+              <SubHeading>Role</SubHeading>
+              <p className="mt-5 max-w-[68ch] text-[16.5px] leading-[1.75] text-ink-2">
+                {unit.role}
+              </p>
+            </section>
+
+            <section>
+              <SubHeading>Overview</SubHeading>
+              <div className="mt-5 flex max-w-[68ch] flex-col gap-4">
+                {unit.description.map((para, i) => (
+                  <p key={i} className="text-[16.5px] leading-[1.75] text-ink-2">
+                    {para}
+                  </p>
+                ))}
+              </div>
+            </section>
+
+            {unit.hooks.length > 0 && (
+              <section>
+                <SubHeading>Memory hooks</SubHeading>
+                <ul className="mt-5 flex flex-col gap-2.5">
+                  {unit.hooks.map((hook, i) => (
+                    <li key={i} className="flex gap-3 text-[15.5px] leading-relaxed">
+                      <span className="mt-0.5 tone-text" aria-hidden>
+                        ▸
+                      </span>
+                      <span>{hook}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+          </div>
+
+          <aside className="flex min-w-0 flex-col gap-10 lg:sticky lg:top-24 lg:self-start">
+            {siblings.length > 0 && forceInfo && (
+              <section>
+                <SubHeading>Elsewhere in the {forceInfo.shortName}</SubHeading>
+                <ul className="mt-4 flex flex-col gap-2">
+                  {siblings.slice(0, 6).map((other) => (
+                    <li key={other.slug}>
+                      <Link
+                        href={`/forces/${other.force}/${other.slug}`}
+                        className="group block rounded-lg border border-rule bg-surface px-4 py-3 transition-colors hover:border-[var(--tone)]"
+                      >
+                        <span className="font-display text-[14.5px] font-semibold transition-colors group-hover:text-[var(--tone)]">
+                          {other.name}
+                        </span>
+                        <span className="mt-1 block text-[12.5px] leading-snug text-ink-3">
+                          {TYPE_LABEL[other.type]}
+                          {other.hq ? ` · ${other.hq}` : ""}
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+                {siblings.length > 6 && (
+                  <Link
+                    href={`/forces/${unit.force}`}
+                    className="mt-3 inline-block font-mono text-[11px] uppercase tracking-[0.14em] tone-text"
+                  >
+                    All {forceInfo.unitLabel.toLowerCase()} →
+                  </Link>
+                )}
+              </section>
+            )}
+
+            <section>
+              <SubHeading>Sources</SubHeading>
+              <ol className="mt-4 flex flex-col gap-3 text-[13px]">
+                {unit.sources.map((source, i) => (
+                  <li key={i} className="leading-relaxed">
+                    <a
+                      href={source.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-accent hover:underline"
+                    >
+                      {source.title}
+                    </a>
+                    <span className="block text-ink-3">{source.publisher}</span>
                   </li>
                 ))}
-              </ul>
+              </ol>
+              <p className="mt-5 font-mono text-[11px] tabular text-ink-3">
+                Last verified {unit.lastVerified}
+              </p>
             </section>
-          )}
+          </aside>
         </div>
-
-        <aside className="flex flex-col gap-10 min-w-0">
-          <section>
-            <SectionHeading>Sources</SectionHeading>
-            <ol className="mt-4 flex flex-col gap-3 text-[13px]">
-              {unit.sources.map((source, i) => (
-                <li key={i} className="leading-relaxed">
-                  <a
-                    href={source.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-accent hover:underline"
-                  >
-                    {source.title}
-                  </a>
-                  <span className="block text-ink-3">{source.publisher}</span>
-                </li>
-              ))}
-            </ol>
-            <p className="mt-5 font-mono text-[11px] text-ink-3 tabular">
-              Last verified {unit.lastVerified}
-            </p>
-          </section>
-        </aside>
-      </div>
+      </Wrap>
     </article>
   );
 }

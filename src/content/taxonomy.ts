@@ -26,16 +26,36 @@ export const TYPED_CATEGORIES = [
   "naval",
 ] as const satisfies readonly CategorySlug[];
 
+export interface ClassImage {
+  src: string;
+  alt: string;
+  /** CSS object-position; the masthead shows only a band of the frame. */
+  position?: string;
+}
+
 export interface EquipmentClass {
   slug: string;
   name: string;
   blurb: string;
+  /**
+   * Optional masthead photograph, same contract as a category's: set only
+   * where we hold a picture of the class as the Indian services actually
+   * operate it. A class with no honest photograph opens on type.
+   */
+  image?: ClassImage;
 }
 
 export interface Category {
   slug: CategorySlug;
   name: string;
   blurb: string;
+  /**
+   * Optional masthead photograph. Only set where we hold a picture that
+   * genuinely shows the category as the Indian services operate it — a
+   * category with no honest photograph gets a typographic header instead of
+   * a decorative stand-in.
+   */
+  image?: ClassImage;
   classes: EquipmentClass[];
 }
 
@@ -44,6 +64,11 @@ export const TAXONOMY: Category[] = [
     slug: "missiles",
     name: "Missiles & Rockets",
     blurb: "Guided and unguided weapons launched from land, sea and air.",
+    image: {
+      src: "/images/category-missiles.webp",
+      alt: "Air-to-air missiles loaded on the wing pylon of a fighter aircraft",
+      position: "50% 38%",
+    },
     classes: [
       { slug: "air-to-air", name: "Air-to-Air", blurb: "Fired from an aircraft at another aircraft." },
       { slug: "air-to-surface", name: "Air-to-Surface", blurb: "Fired from an aircraft at a ground or sea target." },
@@ -60,6 +85,11 @@ export const TAXONOMY: Category[] = [
     slug: "armour",
     name: "Armoured Vehicles",
     blurb: "Tracked and wheeled fighting vehicles of the mechanised forces.",
+    image: {
+      src: "/images/category-armour.webp",
+      alt: "Indian Army BMP-2 infantry combat vehicle on the Republic Day parade route",
+      position: "50% 20%",
+    },
     classes: [
       { slug: "main-battle-tank", name: "Main Battle Tanks", blurb: "The primary armoured punch of the Army." },
       { slug: "light-tank", name: "Light Tanks", blurb: "Air-portable armour for high-altitude and riverine terrain." },
@@ -83,11 +113,43 @@ export const TAXONOMY: Category[] = [
     slug: "aircraft",
     name: "Air Power",
     blurb: "Fixed-wing, rotary-wing and unmanned platforms.",
+    image: {
+      src: "/images/category-aircraft.webp",
+      alt: "Indian Air Force Su-30MKI on the flight line, tricolour fin flash visible",
+      position: "50% 45%",
+    },
     classes: [
-      { slug: "fighter", name: "Fighters & Multirole", blurb: "Air superiority and strike aircraft in service." },
+      {
+        slug: "fighter",
+        name: "Fighters & Multirole",
+        blurb: "Air superiority and strike aircraft in service.",
+        image: {
+          src: "/images/class-fighter.webp",
+          alt: "Indian Air Force SEPECAT Jaguar JS193 on static display, loaded with stores",
+          position: "50% 50%",
+        },
+      },
       { slug: "in-development", name: "Under Development", blurb: "Programmes not yet inducted." },
-      { slug: "transport", name: "Transport", blurb: "Strategic and tactical airlift." },
-      { slug: "rotary-wing", name: "Rotary Wing", blurb: "Attack, utility and heavy-lift helicopters." },
+      {
+        slug: "transport",
+        name: "Transport",
+        blurb: "Strategic and tactical airlift.",
+        image: {
+          src: "/images/class-transport.webp",
+          alt: "Indian Air Force C-17 Globemaster III CB-8001 on a wet apron",
+          position: "50% 45%",
+        },
+      },
+      {
+        slug: "rotary-wing",
+        name: "Rotary Wing",
+        blurb: "Attack, utility and heavy-lift helicopters.",
+        image: {
+          src: "/images/class-rotary-wing.webp",
+          alt: "Indian Air Force Mi-17 ZP 5140 in flight",
+          position: "50% 50%",
+        },
+      },
       { slug: "special-mission", name: "Special Mission", blurb: "Airborne early warning, maritime patrol, refuelling." },
       { slug: "unmanned", name: "Unmanned", blurb: "Reconnaissance drones, armed UAVs and loitering munitions." },
       { slug: "trainer", name: "Trainers", blurb: "Basic, intermediate and advanced jet training." },

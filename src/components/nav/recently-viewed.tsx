@@ -29,8 +29,8 @@ export function RecentlyViewed() {
   if (recent.length === 0) return null;
 
   return (
-    <section className="pb-16">
-      <h2 className="border-b border-rule pb-4 font-mono text-[11px] uppercase tracking-[0.16em] text-ink-3">
+    <section className="mt-12 border-t border-rule pt-6">
+      <h2 className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-3">
         Recently viewed
       </h2>
       <ul className="mt-4 flex flex-wrap gap-2">
@@ -38,7 +38,7 @@ export function RecentlyViewed() {
           <li key={entry.slug}>
             <Link
               href={entry.href}
-              className="inline-block rounded-[4px] border border-rule bg-surface px-3 py-1.5 text-[13px] text-ink-2 transition-colors hover:border-accent hover:text-accent"
+              className="inline-block rounded-[5px] border border-rule bg-surface px-3.5 py-2 text-[13px] text-ink-2 transition-colors hover:border-accent hover:text-accent"
             >
               {entry.name}
             </Link>

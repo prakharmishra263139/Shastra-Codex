@@ -4,6 +4,8 @@ import { TAXONOMY, getCategory, getClass } from "@/content/taxonomy";
 import { entriesByClass } from "@/content";
 import { toBrowseItems } from "@/lib/browse";
 import { Breadcrumbs } from "@/components/breadcrumbs";
+import { Wrap, Eyebrow } from "@/components/layout/section";
+import { PhotoMasthead } from "@/components/layout/masthead";
 import { EntryBrowser } from "@/components/browse/entry-browser";
 
 export function generateStaticParams() {
@@ -29,42 +31,68 @@ export default async function ClassPage({ params }: PageProps<"/[category]/[clas
 
   const items = toBrowseItems(entriesByClass(category, klass));
 
+  const trail = [
+    { label: "Home", href: "/" },
+    { label: "Browse", href: "/browse" },
+    { label: cat.name, href: `/${cat.slug}` },
+    { label: found.name },
+  ];
+
+  const heading = (
+    <>
+      <Eyebrow>{cat.name}</Eyebrow>
+      <h1 className="mt-5 max-w-[20ch] font-display text-[clamp(2.25rem,5vw,3.5rem)] font-bold leading-[1.02] tracking-[-0.035em]">
+        {found.name}
+      </h1>
+      <p className="mt-5 max-w-[58ch] text-[17px] leading-relaxed text-ink-2">
+        {found.blurb}
+      </p>
+      {items.length > 0 && (
+        <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.14em] tabular text-ink-3">
+          {items.length} {items.length === 1 ? "entry" : "entries"}
+        </p>
+      )}
+    </>
+  );
+
   return (
-    <div className="px-4 py-10 sm:px-6">
-      <Breadcrumbs
-        trail={[
-          { label: "Home", href: "/" },
-          { label: "Browse", href: "/browse" },
-          { label: cat.name, href: `/${cat.slug}` },
-          { label: found.name },
-        ]}
-      />
+    <>
+      {/* Same rule as a category: a photograph only where we hold an honest
+          one of the class in Indian service. */}
+      {found.image ? (
+        <PhotoMasthead image={found.image}>
+          <Breadcrumbs trail={trail} />
+          <div className="mt-6">{heading}</div>
+        </PhotoMasthead>
+      ) : null}
 
-      <header className="mt-6 max-w-2xl">
-        <h1 className="font-display font-bold text-3xl sm:text-4xl tracking-[-0.025em]">
-          {found.name}
-        </h1>
-        <p className="mt-3 text-[16px] leading-relaxed text-ink-2">{found.blurb}</p>
-      </header>
-
-      <section className="mt-12">
-        {items.length > 0 ? (
-          <EntryBrowser
-            items={items}
-            facetKeys={["service", "status", "origin", "manufacturer", "decade"]}
-          />
-        ) : (
-          <div className="rounded-md border border-dashed border-rule p-10 text-center">
-            <p className="font-display font-semibold text-[16px]">Nothing here yet</p>
-            <p className="mt-2 text-[14px] text-ink-2">
-              No entries have been written for {found.name.toLowerCase()} so far.
-            </p>
-            <p className="mt-4 font-mono text-[12px] text-ink-3">
-              npm run new -- --category {cat.slug} --class {found.slug}
-            </p>
-          </div>
+      <Wrap wide className={found.image ? "pb-16 pt-12" : "py-12 sm:py-16"}>
+        {!found.image && (
+          <>
+            <Breadcrumbs trail={trail} />
+            <header className="mt-8 border-b border-rule pb-10">{heading}</header>
+          </>
         )}
-      </section>
-    </div>
+
+        <section className={found.image ? "" : "mt-10"}>
+          {items.length > 0 ? (
+            <EntryBrowser
+              items={items}
+              facetKeys={["service", "status", "origin", "manufacturer", "decade"]}
+            />
+          ) : (
+            <div className="rounded-lg border border-dashed border-rule p-12 text-center">
+              <p className="font-display text-[17px] font-semibold">Nothing here yet</p>
+              <p className="mt-2 text-[14px] text-ink-2">
+                No entries have been written for {found.name.toLowerCase()} so far.
+              </p>
+              <p className="mt-6 inline-block rounded-[4px] border border-rule bg-surface px-3 py-2 font-mono text-[12px] text-ink-3">
+                npm run new -- --category {cat.slug} --class {found.slug}
+              </p>
+            </div>
+          )}
+        </section>
+      </Wrap>
+    </>
   );
 }

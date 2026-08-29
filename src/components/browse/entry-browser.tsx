@@ -91,7 +91,7 @@ function Browser({ items, facetKeys }: { items: BrowseItem[]; facetKeys: readonl
   };
 
   return (
-    <div className="flex flex-col gap-6 lg:flex-row lg:gap-10">
+    <div className="flex flex-col gap-6 lg:flex-row lg:gap-12">
       <FilterPanel
         facets={facets}
         filters={filters}
@@ -101,8 +101,8 @@ function Browser({ items, facetKeys }: { items: BrowseItem[]; facetKeys: readonl
       />
 
       <div className="min-w-0 flex-1">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-rule pb-3">
-          <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-3 tabular">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-rule pb-4">
+          <p className="font-mono text-[11px] uppercase tracking-[0.14em] tabular text-ink-3">
             {filtered.length === items.length
               ? `${items.length} ${items.length === 1 ? "entry" : "entries"}`
               : `${filtered.length} of ${items.length}`}
@@ -114,7 +114,7 @@ function Browser({ items, facetKeys }: { items: BrowseItem[]; facetKeys: readonl
             <select
               value={sort}
               onChange={(event) => update((next) => next.set("sort", event.target.value))}
-              className="rounded-[3px] border border-rule bg-surface px-2 py-1 text-[12px] normal-case tracking-normal text-ink"
+              className="rounded-[4px] border border-rule bg-surface px-2.5 py-1.5 text-[12.5px] normal-case tracking-normal text-ink transition-colors hover:border-accent"
             >
               {SORTS.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -126,14 +126,14 @@ function Browser({ items, facetKeys }: { items: BrowseItem[]; facetKeys: readonl
         </div>
 
         {pageItems.length > 0 ? (
-          <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {pageItems.map((item) => (
               <EntryCard key={item.slug} item={item} />
             ))}
           </div>
         ) : (
-          <div className="mt-6 rounded-md border border-dashed border-rule p-10 text-center">
-            <p className="font-display text-[16px] font-semibold">No entry matches</p>
+          <div className="mt-6 rounded-lg border border-dashed border-rule p-12 text-center">
+            <p className="font-display text-[17px] font-semibold">No entry matches</p>
             <p className="mt-2 text-[14px] text-ink-2">
               {activeCount} {activeCount === 1 ? "filter is" : "filters are"} narrowing this list
               to nothing.
@@ -141,7 +141,7 @@ function Browser({ items, facetKeys }: { items: BrowseItem[]; facetKeys: readonl
             <button
               type="button"
               onClick={clear}
-              className="mt-4 font-mono text-[11px] uppercase tracking-[0.12em] text-accent"
+              className="mt-5 rounded-[4px] border border-rule px-3.5 py-2 font-mono text-[11px] uppercase tracking-[0.12em] text-accent transition-colors hover:border-accent"
             >
               Clear filters
             </button>
@@ -151,7 +151,7 @@ function Browser({ items, facetKeys }: { items: BrowseItem[]; facetKeys: readonl
         {pageCount > 1 && (
           <nav
             aria-label="Pagination"
-            className="mt-8 flex items-center justify-center gap-1 font-mono text-[11px]"
+            className="mt-10 flex items-center justify-center gap-1.5 border-t border-rule pt-6 font-mono text-[11px]"
           >
             {Array.from({ length: pageCount }, (_, i) => i + 1).map((target) => (
               <Link
@@ -159,10 +159,10 @@ function Browser({ items, facetKeys }: { items: BrowseItem[]; facetKeys: readonl
                 href={pageHref(target)}
                 scroll={false}
                 aria-current={target === current ? "page" : undefined}
-                className={`rounded-[3px] px-2.5 py-1 tabular transition-colors ${
+                className={`min-w-8 rounded-[4px] border px-2.5 py-1.5 text-center tabular transition-colors ${
                   target === current
-                    ? "bg-accent-dim text-accent"
-                    : "text-ink-3 hover:text-accent"
+                    ? "border-accent bg-accent-dim text-accent"
+                    : "border-transparent text-ink-3 hover:border-rule hover:text-accent"
                 }`}
               >
                 {target}
@@ -188,7 +188,7 @@ export function EntryBrowser({
     // the rest of the page static.
     <Suspense
       fallback={
-        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {items.slice(0, PAGE_SIZE).map((item) => (
             <EntryCard key={item.slug} item={item} />
           ))}

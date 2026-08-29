@@ -5,43 +5,63 @@
   not an inversion.
 
   Visual direction: technical, not tactical. Instrument panels and engineering
-  drawings rather than camouflage and stencil type.
+  drawings rather than camouflage and stencil type. Photography carries the
+  emotion; the interface stays quiet around it.
 */
 
 :root {
-  --ground: #0e1216;
-  --surface: #151b21;
-  --surface-2: #1d242b;
-  --ink: #e6ebef;
-  --ink-2: #a3aeb8;
-  --ink-3: #6f7a85;
-  --rule: #262f37;
-  --rule-soft: #1c242b;
-  --accent: #4fbfc9;
-  --accent-dim: #16343a;
+  --ground: #0a0d10;
+  --ground-2: #0d1115;
+  --surface: #12171c;
+  --surface-2: #1a2027;
+  --ink: #e9eef2;
+  --ink-2: #a6b1bb;
+  --ink-3: #6d7883;
+  --rule: #222a31;
+  --rule-soft: #171d23;
+  --accent: #54c7d1;
+  --accent-dim: #123236;
   --signal: #d6a24e;
   --signal-dim: #322613;
+
+  /* One colour per service. Used for eyebrows, rules and hover states only —
+     never for body text, so the palette stays legible. */
+  --army: #a3b357;
+  --air-force: #5aa7dd;
+  --navy: #d8b25a;
+
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px -12px rgb(0 0 0 / 0.5);
+  --shadow-lift: 0 2px 4px rgb(0 0 0 / 0.4), 0 18px 40px -18px rgb(0 0 0 / 0.65);
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    --ground: #f0f2f4;
+    --ground: #f4f6f8;
+    --ground-2: #eaeef1;
     --surface: #ffffff;
-    --surface-2: #e6eaee;
-    --ink: #131a20;
-    --ink-2: #4c5762;
-    --ink-3: #77828d;
-    --rule: #d4dae0;
-    --rule-soft: #e3e8ec;
-    --accent: #0d6a74;
-    --accent-dim: #dceced;
+    --surface-2: #e8ecf0;
+    --ink: #101820;
+    --ink-2: #48535e;
+    --ink-3: #74808b;
+    --rule: #d6dce2;
+    --rule-soft: #e5eaee;
+    --accent: #0c6670;
+    --accent-dim: #dbeced;
     --signal: #8f5d12;
     --signal-dim: #f4e9d6;
+
+    --army: #5c6a1f;
+    --air-force: #1d5f92;
+    --navy: #8a6410;
+
+    --shadow-card: 0 1px 2px rgb(16 24 32 / 0.06), 0 8px 24px -14px rgb(16 24 32 / 0.18);
+    --shadow-lift: 0 2px 6px rgb(16 24 32 / 0.08), 0 18px 40px -20px rgb(16 24 32 / 0.28);
   }
 }
 
 @theme inline {
   --color-ground: var(--ground);
+  --color-ground-2: var(--ground-2);
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
   --color-ink: var(--ink);
@@ -53,6 +73,9 @@
   --color-accent-dim: var(--accent-dim);
   --color-signal: var(--signal);
   --color-signal-dim: var(--signal-dim);
+  --color-army: var(--army);
+  --color-air-force: var(--air-force);
+  --color-navy: var(--navy);
 
   --font-display: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
@@ -63,11 +86,67 @@ body {
   background: var(--ground);
   color: var(--ink);
   font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
 }
 
 /* Every column of figures lines up. */
 .tabular {
   font-variant-numeric: tabular-nums;
+}
+
+/*
+  A section reading its own accent from context. Each force section sets
+  `--tone` once; every child that needs colour reads it, so a section can be
+  recoloured from one place.
+*/
+.toned {
+  --tone: var(--accent);
+}
+.tone-text {
+  color: var(--tone);
+}
+.tone-border {
+  border-color: var(--tone);
+}
+.tone-bg {
+  background: var(--tone);
+}
+
+/*
+  Panels that sit on a photograph stay dark in both themes. A light-mode scrim
+  over a photograph washes the picture out and takes the headline's contrast
+  with it, so the hero and the force mastheads opt out of the light palette
+  rather than trying to survive it. The scrims themselves use literal rgb()
+  rather than a token, so they cannot drift with the theme either.
+*/
+.on-photo,
+.over-photo {
+  --ground: #0a0d10;
+  --surface: #12171c;
+  --surface-2: #1a2027;
+  --ink: #e9eef2;
+  --ink-2: #a6b1bb;
+  --ink-3: #6d7883;
+  --rule: #2b343c;
+  --accent: #54c7d1;
+  --accent-dim: #123236;
+  color: var(--ink);
+}
+
+/* `on-photo` owns the picture; `over-photo` only floats above one. */
+.on-photo {
+  background: #0a0d10;
+}
+
+/*
+  Engineering-drawing grid. Sits behind hero and closing panels at very low
+  contrast — present when you look for it, invisible when you don't.
+*/
+.blueprint {
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--ink) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--ink) 5%, transparent) 1px, transparent 1px);
+  background-size: 64px 64px;
 }
 
 /*
