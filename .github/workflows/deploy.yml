@@ -1,0 +1,58 @@
+name: Deploy to GitHub Pages
+
+# The site is a full static export, so Pages can host it directly.
+# Deploys the `test` branch; `workflow_dispatch` allows a manual re-run.
+on:
+  push:
+    branches: [test]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys race; queue them instead of cancelling a live one.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # GITHUB_PAGES switches next.config.ts to `output: export` with the
+      # repository sub-path as basePath. `prebuild` rebuilds the content
+      # registry first, so a new entry file cannot be silently omitted.
+      - name: Build static export
+        run: npm run build
+        env:
+          GITHUB_PAGES: "true"
+
+      # Without this, Pages runs the output through Jekyll, which ignores
+      # every directory beginning with an underscore — including `_next`.
+      - name: Disable Jekyll processing
+        run: touch out/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
