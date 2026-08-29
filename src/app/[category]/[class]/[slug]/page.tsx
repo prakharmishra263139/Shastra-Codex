@@ -58,7 +58,8 @@ export default async function EntryPage({
 
       <Breadcrumbs
         trail={[
-          { label: "Codex", href: "/" },
+          { label: "Home", href: "/" },
+          { label: "Browse", href: "/browse" },
           { label: category?.name ?? entry.category, href: `/${entry.category}` },
           {
             label: klass?.name ?? entry.class,

@@ -81,6 +81,21 @@ export function AppHeader({
             </span>
           </Link>
 
+          <nav aria-label="Primary" className="hidden sm:flex items-center gap-4 ml-1">
+            <Link
+              href="/browse"
+              className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-2 hover:text-ink transition-colors"
+            >
+              Browse
+            </Link>
+            <Link
+              href="/forces"
+              className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-2 hover:text-ink transition-colors"
+            >
+              Forces
+            </Link>
+          </nav>
+
           <button
             ref={searchButton}
             type="button"

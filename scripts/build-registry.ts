@@ -1,9 +1,10 @@
 /**
- * Scans src/content/entries and regenerates _registry.ts.
+ * Scans src/content/entries and src/content/units and regenerates each
+ * folder's _registry.ts.
  *
- * This exists so adding an entry is a matter of dropping in one file — there is
- * no central list to remember to update, which is the usual way a content set
- * of a few hundred items silently loses items.
+ * This exists so adding an entry or a unit is a matter of dropping in one
+ * file — there is no central list to remember to update, which is the usual
+ * way a content set of a few hundred items silently loses items.
  *
  * Run with `npm run index`. Runs automatically before dev and build.
  */
@@ -11,26 +12,54 @@
 import { readdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-const ENTRIES_DIR = join(process.cwd(), "src", "content", "entries");
-const OUT_FILE = join(ENTRIES_DIR, "_registry.ts");
+function buildRegistry(opts: {
+  dir: string;
+  typeName: string;
+  typeImportPath: string;
+  exportName: string;
+  varPrefix: string;
+  noun: string;
+}) {
+  const dirPath = join(process.cwd(), "src", "content", opts.dir);
+  const outFile = join(dirPath, "_registry.ts");
 
-const ids = readdirSync(ENTRIES_DIR)
-  .filter((f) => f.endsWith(".ts") && !f.startsWith("_"))
-  .map((f) => f.replace(/\.ts$/, ""))
-  .sort();
+  const NON_CONTENT_FILES = new Set(["schema.ts", "index.ts"]);
+  const ids = readdirSync(dirPath)
+    .filter((f) => f.endsWith(".ts") && !f.startsWith("_") && !NON_CONTENT_FILES.has(f))
+    .map((f) => f.replace(/\.ts$/, ""))
+    .sort();
 
-const varFor = (id: string) => `entry_${id.replace(/[^a-zA-Z0-9]/g, "_")}`;
+  const varFor = (id: string) => `${opts.varPrefix}_${id.replace(/[^a-zA-Z0-9]/g, "_")}`;
 
-const contents = `// GENERATED FILE — do not edit by hand.
+  const contents = `// GENERATED FILE — do not edit by hand.
 // Regenerate with \`npm run index\`.
 
-import type { EntryInput } from "../schema";
+import type { ${opts.typeName} } from "${opts.typeImportPath}";
 ${ids.map((id) => `import ${varFor(id)} from "./${id}";`).join("\n")}
 
-export const RAW_ENTRIES: EntryInput[] = [
+export const ${opts.exportName}: ${opts.typeName}[] = [
 ${ids.map((id) => `  ${varFor(id)},`).join("\n")}
 ];
 `;
 
-writeFileSync(OUT_FILE, contents, "utf8");
-console.log(`Registry rebuilt — ${ids.length} entr${ids.length === 1 ? "y" : "ies"}.`);
+  writeFileSync(outFile, contents, "utf8");
+  console.log(`${opts.noun} registry rebuilt — ${ids.length} ${ids.length === 1 ? "item" : "items"}.`);
+}
+
+buildRegistry({
+  dir: "entries",
+  typeName: "EntryInput",
+  typeImportPath: "../schema",
+  exportName: "RAW_ENTRIES",
+  varPrefix: "entry",
+  noun: "Entries",
+});
+
+buildRegistry({
+  dir: "units",
+  typeName: "UnitInput",
+  typeImportPath: "./schema",
+  exportName: "RAW_UNITS",
+  varPrefix: "unit",
+  noun: "Units",
+});

@@ -33,7 +33,8 @@ export default async function ClassPage({ params }: PageProps<"/[category]/[clas
     <div className="px-4 py-10 sm:px-6">
       <Breadcrumbs
         trail={[
-          { label: "Codex", href: "/" },
+          { label: "Home", href: "/" },
+          { label: "Browse", href: "/browse" },
           { label: cat.name, href: `/${cat.slug}` },
           { label: found.name },
         ]}

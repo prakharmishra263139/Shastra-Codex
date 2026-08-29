@@ -177,7 +177,8 @@ export type SpecBlock = z.infer<typeof SpecBlock>;
 // Entry
 // ---------------------------------------------------------------------------
 
-const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+/** Shared by every content type that has a URL-segment slug — units included. */
+export const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 export const EntrySchema = z
   .object({

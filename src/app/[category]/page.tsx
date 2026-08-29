@@ -30,7 +30,7 @@ export default async function CategoryPage({ params }: PageProps<"/[category]">)
 
   return (
     <div className="px-4 py-10 sm:px-6">
-      <Breadcrumbs trail={[{ label: "Codex", href: "/" }, { label: found.name }]} />
+      <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Browse", href: "/browse" }, { label: found.name }]} />
 
       <header className="mt-6 max-w-2xl">
         <h1 className="font-display font-bold text-3xl sm:text-4xl tracking-[-0.025em]">

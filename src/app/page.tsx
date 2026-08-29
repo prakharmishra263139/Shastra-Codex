@@ -1,8 +1,6 @@
 import Link from "next/link";
-import { TAXONOMY, allEntries, categoryCounts } from "@/content";
-import { toBrowseItems } from "@/lib/browse";
-import { EntryCard } from "@/components/entry-card";
-import { RecentlyViewed } from "@/components/nav/recently-viewed";
+import { TAXONOMY, allEntries } from "@/content";
+import { FORCES, allUnits } from "@/content/units";
 import { MeasureValue } from "@/components/spec-table";
 import type { Measure } from "@/content/schema";
 
@@ -28,7 +26,7 @@ const HOW_IT_WORKS = [
   {
     n: "01",
     title: "Browse the tree",
-    body: "Nine categories, each broken into classes — missiles by role, armour by weight class, aircraft by mission. The sidebar stays visible and shows what is populated and what is not, so nothing is a dead end.",
+    body: "Nine equipment categories broken into classes, or three services broken into their arms, corps and commands. The sidebar stays visible and shows what is populated and what is not.",
   },
   {
     n: "02",
@@ -43,26 +41,18 @@ const HOW_IT_WORKS = [
 ] as const;
 
 export default function HomePage() {
-  const counts = categoryCounts();
-  const total = allEntries.length;
+  const totalEntries = allEntries.length;
+  const totalUnits = allUnits.length;
   const sourcesCited = allEntries.reduce((n, e) => n + e.sources.length, 0);
-
-  const items = toBrowseItems(allEntries);
-  const featured = items.find((i) => i.image) ?? items[0];
-
-  /** Freshest verification first — the home page should show live content. */
-  const recentlyAdded = [...items]
-    .sort((a, b) => b.lastVerified.localeCompare(a.lastVerified) || a.name.localeCompare(b.name))
-    .slice(0, 6);
 
   return (
     <div className="px-4 sm:px-6">
       {/* ---------------------------------------------------------------- */}
       {/* Hero */}
       {/* ---------------------------------------------------------------- */}
-      <section className="py-16 max-w-2xl">
+      <section className="pt-16 pb-20 max-w-2xl">
         <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-accent">
-          Indian Defence Equipment
+          Indian Defence Equipment &amp; Order of Battle
         </p>
         <h1 className="mt-4 font-display font-bold text-4xl sm:text-5xl leading-[1.03] tracking-[-0.03em]">
           Know the equipment.
@@ -71,35 +61,28 @@ export default function HomePage() {
         </h1>
         <p className="mt-5 text-[17px] leading-relaxed text-ink-2">
           Specifications, roles and interview angles for the systems in service with
-          the Indian Armed Forces — sourced, dated, and built to compare side by side.
+          the Indian Armed Forces, and the arms, corps and commands that operate them —
+          sourced, dated, and built to compare side by side.
         </p>
         <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-3 tabular">
-          {total} {total === 1 ? "entry" : "entries"} · {TAXONOMY.length} categories mapped ·{" "}
-          {sourcesCited} sources cited
+          {totalEntries} equipment {totalEntries === 1 ? "entry" : "entries"} ·{" "}
+          {totalUnits} arms &amp; commands · {sourcesCited} sources cited
         </p>
 
-        <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
-          <Link
-            href="#categories"
+        <div className="mt-7">
+          <a
+            href="#explore"
             className="font-mono text-[12px] uppercase tracking-[0.12em] text-accent hover:underline underline-offset-4"
           >
-            Browse the codex →
-          </Link>
-          {featured && (
-            <Link
-              href={featured.href}
-              className="font-mono text-[12px] uppercase tracking-[0.12em] text-ink-2 hover:text-ink"
-            >
-              See an example entry →
-            </Link>
-          )}
+            See how it&apos;s organised ↓
+          </a>
         </div>
       </section>
 
       {/* ---------------------------------------------------------------- */}
       {/* About */}
       {/* ---------------------------------------------------------------- */}
-      <section className="pb-16 grid gap-8 lg:grid-cols-[1fr_18rem]">
+      <section className="pb-20 grid gap-8 lg:grid-cols-[1fr_18rem]">
         <div className="max-w-2xl">
           <h2 className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-3 pb-4 border-b border-rule">
             What this is
@@ -107,15 +90,18 @@ export default function HomePage() {
           <div className="mt-6 space-y-4 text-[15px] leading-relaxed text-ink-2">
             <p>
               Most SSB candidates learn equipment names — BrahMos, Tejas, Akash — without
-              knowing enough about them to survive a follow-up question. Shastra Codex is a
-              reference built to fix that: what a system actually does, the trade-offs it
-              makes, and the exact angle an interviewer is likely to push on.
+              knowing enough about them to survive a follow-up question, and even fewer
+              can say what the Regiment of Artillery does or where Southern Air Command
+              is headquartered. Shastra Codex is a reference built to fix both gaps: what
+              a system or a service actually does, the trade-offs it makes, and the exact
+              angle an interviewer is likely to push on.
             </p>
             <p>
-              There are no accounts, no backend, and nothing behind a login. Every page here
-              is a static file compiled from publicly available sources — Ministry of
-              Defence releases, DRDO and HAL material, and established defence journalism —
-              each one cited and dated on the entry itself.
+              There are no accounts, no backend, and nothing behind a login. Every page
+              here is a static file compiled from publicly available sources — Ministry
+              of Defence releases, the three service websites, DRDO and HAL material, and
+              established defence journalism — each one cited and dated on the page
+              itself.
             </p>
           </div>
         </div>
@@ -137,7 +123,7 @@ export default function HomePage() {
             Sourced from
           </p>
           <p className="mt-1.5 text-[14px] leading-relaxed">
-            PIB, MoD, DRDO/HAL, and established defence journalism
+            PIB, MoD, the service websites, DRDO/HAL, and established defence journalism
           </p>
         </div>
       </section>
@@ -145,7 +131,7 @@ export default function HomePage() {
       {/* ---------------------------------------------------------------- */}
       {/* How it works */}
       {/* ---------------------------------------------------------------- */}
-      <section className="pb-16">
+      <section className="pb-20">
         <h2 className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-3 pb-4 border-b border-rule">
           How it works
         </h2>
@@ -165,14 +151,14 @@ export default function HomePage() {
       {/* ---------------------------------------------------------------- */}
       {/* Confidence markers */}
       {/* ---------------------------------------------------------------- */}
-      <section className="pb-16">
+      <section className="pb-20">
         <h2 className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-3 pb-4 border-b border-rule">
           Not every figure is official — this site says so
         </h2>
         <p className="mt-6 max-w-2xl text-[15px] leading-relaxed text-ink-2">
           Most public defence specifications are estimates or export-variant numbers.
-          Rather than print them as hard fact, every figure on Shastra Codex carries a
-          confidence marker, right there in the text:
+          Rather than print them as hard fact, every measured figure on Shastra Codex
+          carries a confidence marker, right there in the text:
         </p>
 
         <dl className="mt-6 grid gap-3 sm:grid-cols-3">
@@ -197,64 +183,53 @@ export default function HomePage() {
         </p>
       </section>
 
-      <RecentlyViewed />
-
       {/* ---------------------------------------------------------------- */}
-      {/* Browse by category */}
+      {/* Two ways in */}
       {/* ---------------------------------------------------------------- */}
-      <section id="categories" className="pb-16 scroll-mt-20">
+      <section id="explore" className="pb-20 scroll-mt-20">
         <h2 className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-3 pb-4 border-b border-rule">
-          Browse by category
+          Two ways to explore
         </h2>
 
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {TAXONOMY.map((category) => {
-            const count = counts[category.slug] ?? 0;
-            const empty = count === 0;
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          <Link
+            href="/browse"
+            className="group flex flex-col gap-3 rounded-md border border-rule bg-surface p-7 transition-colors hover:border-accent"
+          >
+            <span className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-ink-3">
+              By equipment
+            </span>
+            <h3 className="font-display font-bold text-2xl tracking-tight group-hover:text-accent transition-colors">
+              Browse the codex
+            </h3>
+            <p className="text-[14px] leading-relaxed text-ink-2">
+              Missiles, armour, artillery, aircraft and more — {totalEntries} entries
+              across {TAXONOMY.length} categories, each with full specifications and
+              sources.
+            </p>
+            <span className="mt-auto pt-4 font-mono text-[11px] uppercase tracking-[0.12em] text-accent">
+              Browse the codex →
+            </span>
+          </Link>
 
-            return (
-              <Link
-                key={category.slug}
-                href={`/${category.slug}`}
-                aria-disabled={empty}
-                className={`group flex flex-col gap-2 rounded-md border p-5 transition-colors ${
-                  empty
-                    ? "border-rule-soft bg-transparent"
-                    : "border-rule bg-surface hover:border-accent"
-                }`}
-              >
-                <div className="flex items-baseline justify-between gap-3">
-                  <h3
-                    className={`font-display font-semibold text-[16px] tracking-tight transition-colors ${
-                      empty ? "text-ink-3" : "group-hover:text-accent"
-                    }`}
-                  >
-                    {category.name}
-                  </h3>
-                  <span className="font-mono text-[11px] text-ink-3 tabular">
-                    {count}
-                  </span>
-                </div>
-                <p className="text-[13.5px] leading-relaxed text-ink-2">
-                  {category.blurb}
-                </p>
-                <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-ink-3 mt-1">
-                  {category.classes.length} classes
-                </p>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
-
-      <section className="pb-16">
-        <h2 className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-3 pb-4 border-b border-rule">
-          Recently added
-        </h2>
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {recentlyAdded.map((item) => (
-            <EntryCard key={item.slug} item={item} />
-          ))}
+          <Link
+            href="/forces"
+            className="group flex flex-col gap-3 rounded-md border border-rule bg-surface p-7 transition-colors hover:border-accent"
+          >
+            <span className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-ink-3">
+              By force
+            </span>
+            <h3 className="font-display font-bold text-2xl tracking-tight group-hover:text-accent transition-colors">
+              Browse by force
+            </h3>
+            <p className="text-[14px] leading-relaxed text-ink-2">
+              {FORCES.map((f) => f.name.replace("Indian ", "")).join(", ")} — {totalUnits}{" "}
+              arms, corps and commands, plus the equipment each one operates.
+            </p>
+            <span className="mt-auto pt-4 font-mono text-[11px] uppercase tracking-[0.12em] text-accent">
+              Browse by force →
+            </span>
+          </Link>
         </div>
       </section>
     </div>
