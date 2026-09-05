@@ -7,35 +7,85 @@
   Visual direction: technical, not tactical. Instrument panels and engineering
   drawings rather than camouflage and stencil type. Photography carries the
   emotion; the interface stays quiet around it.
+
+  Colour is organised in two layers:
+
+    1. A neutral gunmetal ground, one system accent (instrument cyan) and one
+       caution colour. The chrome is built from these and they are the same on
+       every page.
+    2. Three service themes, each a *pair* — a line colour legible on the
+       ground, and a deep field colour used to wash a whole band. A section
+       sets `--tone` and `--tone-deep` once and every child reads them, so a
+       page reads army / air force / navy before a word of it is read.
+
+  The pairs are drawn from what each service actually wears:
+
+    Army       olive drab lines over an olive-drab field
+    Air Force  IAF sky blue over a steel-blue field
+    Navy       the gold of an anchor and a cap badge, over deep indigo
+
+  Navy takes gold rather than blue for its line colour on purpose. Two blues
+  side by side are just two blues; gold on navy is unmistakably naval and
+  cannot be confused with the Air Force at a glance. The two blue *fields* are
+  pulled apart the same way — the Air Force's towards cyan, the Navy's towards
+  indigo — so consecutive bands differ before a single line is read.
 */
 
 :root {
-  --ground: #0a0d10;
-  --ground-2: #0d1115;
-  --surface: #12171c;
-  --surface-2: #1a2027;
+  color-scheme: dark;
+
+  --ground: #080b0e;
+  --ground-2: #0c1015;
+  --surface: #11171d;
+  --surface-2: #19212a;
   --ink: #e9eef2;
   --ink-2: #a6b1bb;
   --ink-3: #6d7883;
-  --rule: #222a31;
-  --rule-soft: #171d23;
-  --accent: #54c7d1;
-  --accent-dim: #123236;
+  --rule: #222c35;
+  --rule-soft: #171e25;
+  --accent: #58c9d6;
+  --accent-dim: #0e3238;
   --signal: #d6a24e;
   --signal-dim: #322613;
 
-  /* One colour per service. Used for eyebrows, rules and hover states only —
-     never for body text, so the palette stays legible. */
-  --army: #a3b357;
-  --air-force: #5aa7dd;
-  --navy: #d8b25a;
+  /* One pair per service: a line colour, and a field to wash a band with. */
+  --army: #a9bd6c;
+  --army-deep: #232c14;
+  --air-force: #62abe4;
+  --air-force-deep: #0d3350;
+  --navy: #e0b65e;
+  --navy-deep: #101a3a;
+
+  /* The contextual pair. Sections override these; nothing reads the service
+     tokens directly, so any surface can be re-toned from one declaration. */
+  --tone: var(--accent);
+  --tone-deep: var(--accent-dim);
 
   --shadow-card: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px -12px rgb(0 0 0 / 0.5);
   --shadow-lift: 0 2px 4px rgb(0 0 0 / 0.4), 0 18px 40px -18px rgb(0 0 0 / 0.65);
+
+  /*
+    Motion. Four durations and two curves, so everything that moves on the site
+    is timed against one scale rather than whatever Tailwind default happened
+    to be nearest to hand.
+
+    `--motion-soft` decelerates hard and settles — the curve for something
+    arriving. `--motion-swift` is symmetric, for something travelling between
+    two known states. Both are exposed to Tailwind below as `ease-soft` and
+    `ease-swift`.
+  */
+  --motion-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-swift: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-1: 140ms;
+  --dur-2: 240ms;
+  --dur-3: 420ms;
+  --dur-4: 700ms;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
+    color-scheme: light;
+
     --ground: #f4f6f8;
     --ground-2: #eaeef1;
     --surface: #ffffff;
@@ -50,9 +100,14 @@
     --signal: #8f5d12;
     --signal-dim: #f4e9d6;
 
-    --army: #5c6a1f;
-    --air-force: #1d5f92;
+    /* Line colours darken to stay legible; the fields invert to pale washes,
+       so a toned band still reads as that service without going murky. */
+    --army: #55632a;
+    --army-deep: #e9efd9;
+    --air-force: #1a5c8f;
+    --air-force-deep: #dbeaf7;
     --navy: #8a6410;
+    --navy-deep: #e0e1f3;
 
     --shadow-card: 0 1px 2px rgb(16 24 32 / 0.06), 0 8px 24px -14px rgb(16 24 32 / 0.18);
     --shadow-lift: 0 2px 6px rgb(16 24 32 / 0.08), 0 18px 40px -20px rgb(16 24 32 / 0.28);
@@ -77,6 +132,14 @@
   --color-air-force: var(--air-force);
   --color-navy: var(--navy);
 
+  /* `tone` is a real Tailwind colour, so `text-tone`, `border-tone` and
+     `bg-tone/15` all work and all follow whichever section they land in. */
+  --color-tone: var(--tone);
+  --color-tone-deep: var(--tone-deep);
+
+  --ease-soft: var(--motion-soft);
+  --ease-swift: var(--motion-swift);
+
   --font-display: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, monospace;
@@ -94,13 +157,31 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
+/* --------------------------------------------------------------------------
+   Service themes
+   -------------------------------------------------------------------------- */
+
 /*
-  A section reading its own accent from context. Each force section sets
-  `--tone` once; every child that needs colour reads it, so a section can be
-  recoloured from one place.
+  A section reading its own accent from context. `data-force` is the normal way
+  in — one attribute sets the whole pair, so a band, a card and a page header
+  all tone themselves from the same source of truth.
 */
+[data-force="army"] {
+  --tone: var(--army);
+  --tone-deep: var(--army-deep);
+}
+[data-force="air-force"] {
+  --tone: var(--air-force);
+  --tone-deep: var(--air-force-deep);
+}
+[data-force="navy"] {
+  --tone: var(--navy);
+  --tone-deep: var(--navy-deep);
+}
+
 .toned {
   --tone: var(--accent);
+  --tone-deep: var(--accent-dim);
 }
 .tone-text {
   color: var(--tone);
@@ -113,6 +194,69 @@ body {
 }
 
 /*
+  The wash that makes a whole band belong to a service. A gradient rather than
+  a flat fill, so the band has a lit top edge and dissolves back into the page
+  ground — three of these stacked down the home page read as three chapters,
+  not three coloured boxes.
+*/
+.tone-field {
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--tone-deep) 70%, transparent) 0%,
+    color-mix(in srgb, var(--tone-deep) 22%, transparent) 42%,
+    transparent 82%
+  );
+}
+
+/*
+  The service tint laid over a masthead photograph. Strongest along the bottom
+  edge, where the title sits and the picture is already in shadow, and gone by
+  the middle of the frame — so it colours the band without colour-casting the
+  subject.
+*/
+.tone-scrim {
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--tone-deep) 88%, transparent) 0%,
+    color-mix(in srgb, var(--tone-deep) 30%, transparent) 34%,
+    transparent 68%
+  );
+}
+
+/* The hairline that opens a toned band: the service colour at full strength in
+   the middle, dissolving at both ends. */
+.tone-rule {
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--tone) 16%,
+    var(--tone) 84%,
+    transparent
+  );
+}
+
+/*
+  All three services in one hairline. Used where the site signs its own name —
+  the foot of the hero, the top of the footer — and nowhere else, so it stays a
+  signature rather than a decoration.
+*/
+.service-rule {
+  background: linear-gradient(
+    to right,
+    var(--army) 0%,
+    var(--army) 33.34%,
+    var(--air-force) 33.34%,
+    var(--air-force) 66.67%,
+    var(--navy) 66.67%,
+    var(--navy) 100%
+  );
+}
+
+/* --------------------------------------------------------------------------
+   Photographic panels
+   -------------------------------------------------------------------------- */
+
+/*
   Panels that sit on a photograph stay dark in both themes. A light-mode scrim
   over a photograph washes the picture out and takes the headline's contrast
   with it, so the hero and the force mastheads opt out of the light palette
@@ -121,21 +265,40 @@ body {
 */
 .on-photo,
 .over-photo {
-  --ground: #0a0d10;
-  --surface: #12171c;
-  --surface-2: #1a2027;
+  --ground: #080b0e;
+  --surface: #11171d;
+  --surface-2: #19212a;
   --ink: #e9eef2;
   --ink-2: #a6b1bb;
   --ink-3: #6d7883;
   --rule: #2b343c;
-  --accent: #54c7d1;
-  --accent-dim: #123236;
+  --accent: #58c9d6;
+  --accent-dim: #0e3238;
   color: var(--ink);
+}
+
+/*
+  A masthead keeps its service tone under that dark palette, because the tone
+  pair is what identifies the page. The line colour is lifted a step for the
+  extra contrast a photograph demands, and the field is re-darkened, since the
+  pale light-mode field would glow through the picture.
+*/
+.on-photo[data-force="army"] {
+  --army: #b7ca7c;
+  --tone-deep: #232c14;
+}
+.on-photo[data-force="air-force"] {
+  --air-force: #74b6ea;
+  --tone-deep: #0d3350;
+}
+.on-photo[data-force="navy"] {
+  --navy: #e6c176;
+  --tone-deep: #101a3a;
 }
 
 /* `on-photo` owns the picture; `over-photo` only floats above one. */
 .on-photo {
-  background: #0a0d10;
+  background: #080b0e;
 }
 
 /*
@@ -172,11 +335,230 @@ body {
   border-radius: 2px;
 }
 
+/* --------------------------------------------------------------------------
+   Motion
+   -------------------------------------------------------------------------- */
+
+/*
+  Both entrance keyframes animate `transform`, and nothing else on the site
+  does. Tailwind v4 compiles `translate-*`, `scale-*` and `rotate-*` to the
+  independent `translate`, `scale` and `rotate` properties, which leaves
+  `transform` free — and it has to stay free, because an animation's filled
+  value outranks any author rule. A card that revealed itself on `translate`
+  could never be lifted on hover again. Split across the two, they compose.
+*/
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes settle {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/*
+  Panels that open on demand — the equipment menu, the command palette, the
+  mobile sheet. Each is mounted only while open, so a mount animation is the
+  only kind available; each is short enough that a reader who opens the palette
+  to type is never waiting on it.
+*/
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes drop-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+.anim-fade {
+  animation: fade-in var(--dur-2) var(--motion-soft) both;
+}
+.anim-drop {
+  animation: drop-in var(--dur-2) var(--motion-soft) both;
+}
+.anim-pop {
+  animation: pop-in var(--dur-2) var(--motion-soft) both;
+}
+.anim-sheet {
+  animation: slide-in-right var(--dur-3) var(--motion-soft) both;
+}
+
+/* First paint, above the fold: the hero settles into place rather than simply
+   appearing. `--rise-delay` staggers the stack from one place. */
+.rise {
+  animation: rise-in var(--dur-4) var(--motion-soft) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+
+/* The hero photograph drifts to rest over two seconds — long enough that it
+   never reads as a zoom, short enough to finish before anyone scrolls past. */
+.settle {
+  animation: settle 2s var(--motion-soft) both;
+}
+
+/*
+  Scroll reveal, without JavaScript.
+
+  A scroll-driven timeline rather than an IntersectionObserver, on purpose: an
+  observer has to start elements hidden, so anything already on screen at first
+  paint flashes in, and *everything* stays hidden if the script fails. Here the
+  animation is a function of scroll position, so content already in view is
+  already at the end of its range and paints finished. Browsers without the
+  feature never enter the block and get the ordinary page.
+*/
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: rise-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   View transitions
+   -------------------------------------------------------------------------- */
+
+/*
+  A route change is a cross-fade with a small vertical handoff: the page
+  leaving goes quickly so it stops competing for attention, the page arriving
+  is slower and waits for it. Photographs that exist on both pages morph
+  between their two positions instead, which is what tells a reader the tank
+  they clicked is the tank they are now looking at.
+*/
+::view-transition {
+  /* The overlay would otherwise swallow clicks made mid-transition. */
+  pointer-events: none;
+}
+
+/*
+  The chrome is not part of the animation. Header and footer are identical
+  either side of a navigation, so cross-fading them only produces a flicker;
+  the root swaps instantly and the named page boundary does all the moving.
+*/
+::view-transition-group(root),
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(site-header) {
+  display: none;
+}
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+@keyframes vt-fade {
+  from {
+    opacity: 0;
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes vt-lift {
+  from {
+    transform: translateY(12px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+::view-transition-old(.page-exit) {
+  animation:
+    var(--dur-1) var(--motion-swift) both vt-fade reverse,
+    var(--dur-1) var(--motion-swift) both vt-lift reverse;
+}
+::view-transition-new(.page-enter) {
+  animation:
+    var(--dur-2) var(--motion-soft) var(--dur-1) both vt-fade,
+    var(--dur-3) var(--motion-soft) both vt-lift;
+}
+
+/* A photograph that exists on both pages travels between them. The blur peak
+   mid-flight hides the pixel interpolation of a thumbnail scaled up. */
+::view-transition-group(.morph) {
+  animation-duration: var(--dur-3);
+  animation-timing-function: var(--motion-soft);
+}
+::view-transition-image-pair(.morph) {
+  animation-name: morph-blur;
+}
+@keyframes morph-blur {
+  30% {
+    filter: blur(3px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    /* The delay has to go too. A staggered entrance whose duration is
+       collapsed but whose delay is not leaves the element sitting in its
+       opening keyframe — invisible — for the length of the stagger. */
+    animation-delay: 0s !important;
     transition-duration: 0.01ms !important;
+  }
+
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
   }
 }

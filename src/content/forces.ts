@@ -6,10 +6,15 @@ import type { Force } from "./units/schema";
  * roadmap names — Coast Guard and Strategic Forces Command stay under
  * `operators` on the equipment side rather than getting a force page here.
  *
- * Each force also carries what it needs to be *presented* — a motto, a
- * photograph, a colour. Three services means three chances to make a page look
- * generic; giving each one a fixed identity here means every surface that
- * renders a force renders the same one.
+ * Each force also carries what it needs to be *presented* — a motto and a
+ * photograph. Three services means three chances to make a page look generic;
+ * giving each one a fixed identity here means every surface that renders a
+ * force renders the same one.
+ *
+ * Its colour is the exception: a service is a *pair* of colours, and both are
+ * declared in `globals.css` against `[data-force="<slug>"]`. Putting the slug
+ * on any element themes it and everything inside it, which is one attribute
+ * rather than a custom property threaded through every component.
  */
 export interface ForceInfo {
   slug: Force;
@@ -24,8 +29,6 @@ export interface ForceInfo {
   /** What its sub-segments are actually called — "Regiments & Corps" reads oddly for the Navy. */
   unitLabel: string;
   unitLabelSingular: string;
-  /** CSS custom property holding this force's colour, set on `--tone`. */
-  tone: string;
   image: { src: string; alt: string };
 }
 
@@ -41,7 +44,6 @@ export const FORCES: ForceInfo[] = [
     motto: { text: "सेवा परमो धर्म:", translation: "Service Before Self" },
     unitLabel: "Arms & Corps",
     unitLabelSingular: "Arm / Corps",
-    tone: "var(--army)",
     image: {
       src: "/images/force-army.webp",
       alt: "Indian Army contingent marching past a tricolour dais in the rain",
@@ -58,7 +60,6 @@ export const FORCES: ForceInfo[] = [
     motto: { text: "नभः स्पृशं दीप्तम्", translation: "Touch the Sky with Glory" },
     unitLabel: "Commands",
     unitLabelSingular: "Command",
-    tone: "var(--air-force)",
     image: {
       src: "/images/force-air-force.webp",
       alt: "Fighter pilot in the cockpit of a jet, canopy open",
@@ -78,7 +79,6 @@ export const FORCES: ForceInfo[] = [
     },
     unitLabel: "Commands",
     unitLabelSingular: "Command",
-    tone: "var(--navy)",
     image: {
       src: "/images/force-navy.webp",
       alt: "Indian Navy sailors formed up in ranks on a foggy parade route",

@@ -114,7 +114,7 @@ function Browser({ items, facetKeys }: { items: BrowseItem[]; facetKeys: readonl
             <select
               value={sort}
               onChange={(event) => update((next) => next.set("sort", event.target.value))}
-              className="rounded-[4px] border border-rule bg-surface px-2.5 py-1.5 text-[12.5px] normal-case tracking-normal text-ink transition-colors hover:border-accent"
+              className="rounded-[4px] border border-rule bg-surface px-2.5 py-1.5 text-[12.5px] normal-case tracking-normal text-ink transition-colors duration-200 ease-soft hover:border-accent"
             >
               {SORTS.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -141,7 +141,7 @@ function Browser({ items, facetKeys }: { items: BrowseItem[]; facetKeys: readonl
             <button
               type="button"
               onClick={clear}
-              className="mt-5 rounded-[4px] border border-rule px-3.5 py-2 font-mono text-[11px] uppercase tracking-[0.12em] text-accent transition-colors hover:border-accent"
+              className="mt-5 rounded-[4px] border border-rule px-3.5 py-2 font-mono text-[11px] uppercase tracking-[0.12em] text-accent transition-colors duration-200 ease-soft hover:border-accent"
             >
               Clear filters
             </button>
@@ -159,7 +159,7 @@ function Browser({ items, facetKeys }: { items: BrowseItem[]; facetKeys: readonl
                 href={pageHref(target)}
                 scroll={false}
                 aria-current={target === current ? "page" : undefined}
-                className={`min-w-8 rounded-[4px] border px-2.5 py-1.5 text-center tabular transition-colors ${
+                className={`min-w-8 rounded-[4px] border px-2.5 py-1.5 text-center tabular transition-colors duration-200 ease-soft ${
                   target === current
                     ? "border-accent bg-accent-dim text-accent"
                     : "border-transparent text-ink-3 hover:border-rule hover:text-accent"
@@ -190,7 +190,9 @@ export function EntryBrowser({
       fallback={
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {items.slice(0, PAGE_SIZE).map((item) => (
-            <EntryCard key={item.slug} item={item} />
+            // The fallback duplicates cards the resolved browser also renders,
+            // so it must not claim their view transition names.
+            <EntryCard key={item.slug} item={item} morph={false} />
           ))}
         </div>
       }

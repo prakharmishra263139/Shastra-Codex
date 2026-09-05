@@ -6,6 +6,7 @@ import {
   CardThumbnail,
   CardThumbnailPlaceholder,
 } from "@/components/entry-images";
+import { SharedPhoto, entryPhotoName } from "@/components/layout/page-transition";
 
 export function StatusPill({ status }: { status: Entry["status"] | string }) {
   const tone =
@@ -29,13 +30,36 @@ export function StatusPill({ status }: { status: Entry["status"] | string }) {
  * recognising and the class label does the placing, so a reader landing on a
  * grid mid-site still knows what they are looking at.
  */
-export function EntryCard({ item }: { item: BrowseItem }) {
+export function EntryCard({
+  item,
+  morph = true,
+}: {
+  item: BrowseItem;
+  /**
+   * Whether this card's photograph should travel to the entry page.
+   *
+   * A view transition name has to be unique in the document, so a card that is
+   * a placeholder for another card on the same page — a Suspense fallback, for
+   * instance — has to opt out, or the browser abandons the transition.
+   */
+  morph?: boolean;
+}) {
+  const thumbnail = item.image ? (
+    <CardThumbnail image={item.image} />
+  ) : (
+    <CardThumbnailPlaceholder />
+  );
+
   return (
     <Link
       href={item.href}
-      className="group flex flex-col overflow-hidden rounded-lg border border-rule bg-surface shadow-[var(--shadow-card)] transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:shadow-[var(--shadow-lift)]"
+      className="group flex flex-col overflow-hidden rounded-lg border border-rule bg-surface shadow-[var(--shadow-card)] transition-[translate,border-color,box-shadow] duration-300 ease-soft hover:-translate-y-1 hover:border-accent hover:shadow-[var(--shadow-lift)]"
     >
-      {item.image ? <CardThumbnail image={item.image} /> : <CardThumbnailPlaceholder />}
+      {morph && item.image ? (
+        <SharedPhoto name={entryPhotoName(item.slug)}>{thumbnail}</SharedPhoto>
+      ) : (
+        thumbnail
+      )}
 
       <div className="flex min-w-0 flex-1 flex-col p-5">
         <div className="flex items-center justify-between gap-3">
@@ -45,7 +69,7 @@ export function EntryCard({ item }: { item: BrowseItem }) {
           <StatusPill status={item.status} />
         </div>
 
-        <h3 className="mt-3 font-display text-[18px] font-semibold leading-tight tracking-[-0.02em] transition-colors group-hover:text-accent">
+        <h3 className="mt-3 font-display text-[18px] font-semibold leading-tight tracking-[-0.02em] transition-colors duration-200 ease-soft group-hover:text-accent">
           {item.name}
         </h3>
 

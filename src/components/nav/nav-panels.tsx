@@ -30,7 +30,7 @@ function CategoryLink({
       href={`/${category.slug}`}
       onClick={onNavigate}
       aria-current={active ? "page" : undefined}
-      className={`group flex items-baseline justify-between gap-3 rounded-[4px] px-3 py-2 transition-colors ${
+      className={`group flex items-baseline justify-between gap-3 rounded-[4px] px-3 py-2 transition-colors duration-200 ease-soft ${
         active ? "bg-accent-dim text-accent" : "hover:bg-surface-2"
       }`}
     >
@@ -81,7 +81,7 @@ export function EquipmentMenu({
   return (
     <div
       ref={panel}
-      className="absolute left-0 top-full z-50 mt-2 w-[min(46rem,calc(100vw-3rem))] overflow-hidden rounded-lg border border-rule bg-ground shadow-[var(--shadow-lift)]"
+      className="anim-drop absolute left-0 top-full z-50 mt-2 w-[min(46rem,calc(100vw-3rem))] overflow-hidden rounded-lg border border-rule bg-ground shadow-[var(--shadow-lift)]"
     >
       <div className="grid gap-1 p-3 sm:grid-cols-3">
         {tree.map((category) => (
@@ -106,7 +106,7 @@ export function EquipmentMenu({
           Browse everything
           <span
             aria-hidden
-            className="ml-2 inline-block transition-transform group-hover:translate-x-1"
+            className="ml-2 inline-block transition-transform duration-200 ease-soft group-hover:translate-x-1"
           >
             →
           </span>
@@ -134,12 +134,12 @@ export function MobileNav({
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-black/70 lg:hidden"
+      className="anim-fade fixed inset-0 z-50 bg-black/70 lg:hidden"
       onClick={onClose}
       role="presentation"
     >
       <div
-        className="ml-auto flex h-full w-[min(21rem,88%)] flex-col border-l border-rule bg-ground"
+        className="anim-sheet ml-auto flex h-full w-[min(21rem,88%)] flex-col border-l border-rule bg-ground"
         onClick={(event) => event.stopPropagation()}
       >
         <div className="flex h-16 shrink-0 items-center justify-between border-b border-rule px-5">
@@ -176,14 +176,11 @@ export function MobileNav({
                 <Link
                   href={`/forces/${force.slug}`}
                   onClick={onClose}
-                  className="flex items-center gap-3 rounded-[4px] px-3 py-2 hover:bg-surface-2"
+                  data-force={force.slug}
+                  className="group flex items-center gap-3 rounded-[4px] px-3 py-2 transition-colors duration-200 ease-soft hover:bg-surface-2"
                 >
-                  <span
-                    aria-hidden
-                    className="h-4 w-[3px] rounded-full"
-                    style={{ background: force.tone }}
-                  />
-                  <span className="font-display text-[15px] font-semibold tracking-tight">
+                  <span aria-hidden className="tone-bg h-4 w-[3px] rounded-full" />
+                  <span className="font-display text-[15px] font-semibold tracking-tight transition-colors duration-200 ease-soft group-hover:text-tone">
                     {force.name}
                   </span>
                 </Link>

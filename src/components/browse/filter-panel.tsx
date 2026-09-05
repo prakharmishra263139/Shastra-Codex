@@ -27,7 +27,7 @@ function FacetGroup({
           return (
             <li key={option.value}>
               <label
-                className={`flex cursor-pointer items-baseline justify-between gap-2 rounded-[4px] px-2 py-1.5 text-[13px] transition-colors ${
+                className={`flex cursor-pointer items-baseline justify-between gap-2 rounded-[4px] px-2 py-1.5 text-[13px] transition-colors duration-200 ease-soft ${
                   checked
                     ? "bg-accent-dim text-accent"
                     : "text-ink-2 hover:bg-surface-2 hover:text-ink"
@@ -86,7 +86,7 @@ export function FilterPanel({
           <button
             type="button"
             onClick={onClear}
-            className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-3 transition-colors hover:text-accent"
+            className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-3 transition-colors duration-200 ease-soft hover:text-accent"
           >
             Clear all {activeCount} filters
           </button>
@@ -99,7 +99,7 @@ export function FilterPanel({
     <>
       {/* Below `lg` the panel folds away rather than pushing the grid off-screen. */}
       <details className="overflow-hidden rounded-lg border border-rule bg-surface lg:hidden">
-        <summary className="cursor-pointer px-4 py-3 font-mono text-[11px] uppercase tracking-[0.14em] text-ink-2">
+        <summary className="cursor-pointer px-4 py-3 font-mono text-[11px] uppercase tracking-[0.14em] text-ink-2 transition-colors duration-200 ease-soft hover:text-ink">
           Filters{activeCount > 0 && ` · ${activeCount}`}
         </summary>
         <div className="border-t border-rule">{body}</div>

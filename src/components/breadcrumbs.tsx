@@ -19,7 +19,7 @@ export function Breadcrumbs({ trail }: { trail: Crumb[] }) {
             )}
             <li>
               {crumb.href ? (
-                <Link href={crumb.href} className="hover:text-accent transition-colors">
+                <Link href={crumb.href} className="transition-colors duration-200 ease-soft hover:text-accent">
                   {crumb.label}
                 </Link>
               ) : (

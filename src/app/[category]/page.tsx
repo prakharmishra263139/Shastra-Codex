@@ -13,6 +13,7 @@ import {
 } from "@/components/layout/section";
 import { PhotoMasthead } from "@/components/layout/masthead";
 import { EntryBrowser } from "@/components/browse/entry-browser";
+import { PageTransition } from "@/components/layout/page-transition";
 
 export function generateStaticParams() {
   return TAXONOMY.map((c) => ({ category: c.slug }));
@@ -80,7 +81,7 @@ export default async function CategoryPage({
   );
 
   return (
-    <>
+    <PageTransition>
       {/* A category only gets a masthead where we hold a photograph that
           honestly shows it; the rest open on type alone. */}
       {found.image ? (
@@ -118,7 +119,7 @@ export default async function CategoryPage({
                 <Link
                   key={klass.slug}
                   href={`/${found.slug}/${klass.slug}`}
-                  className="group flex min-h-[9.5rem] flex-col bg-surface p-6 transition-colors hover:bg-surface-2"
+                  className="group reveal relative flex min-h-[9.5rem] flex-col bg-surface p-6 transition-colors duration-200 ease-soft hover:bg-surface-2"
                 >
                   <div className="flex items-baseline justify-between gap-3">
                     <h3
@@ -139,6 +140,11 @@ export default async function CategoryPage({
                   <p className="mt-2.5 text-[13px] leading-relaxed text-ink-2">
                     {klass.blurb}
                   </p>
+
+                  <span
+                    aria-hidden
+                    className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-accent transition-transform duration-300 ease-soft group-hover:scale-x-100"
+                  />
                 </Link>
               );
             })}
@@ -159,6 +165,6 @@ export default async function CategoryPage({
           </section>
         )}
       </Wrap>
-    </>
+    </PageTransition>
   );
 }

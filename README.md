@@ -93,6 +93,61 @@ Use `min` where a figure is genuinely a band (Akash engages from 4.5 to 25 km).
 
 ---
 
+## How the look works
+
+Everything is in `src/app/globals.css`. Two rules cover almost all of it.
+
+### Colour: one neutral system, three services
+
+The chrome — ground, surfaces, rules, the instrument-cyan accent, the amber
+caution colour — is the same on every page. On top of that sit three service
+themes, each a **pair**: a line colour that stays legible on the ground, and a
+deep field colour that washes a whole band.
+
+| | Line | Field |
+| --- | --- | --- |
+| Army | olive drab | olive drab |
+| Air Force | IAF sky blue | steel blue |
+| Navy | anchor gold | deep indigo |
+
+The Navy takes gold rather than blue on purpose: two blues side by side are just
+two blues, and the fields are pulled apart the same way so consecutive bands
+differ before a single line is read.
+
+**Theme anything by putting `data-force="army" | "air-force" | "navy"` on it.**
+That sets `--tone` and `--tone-deep` for the element and everything inside it.
+Read them through the Tailwind colours `tone` / `tone-deep` (`text-tone`,
+`border-tone`, `bg-tone/15`) or the helper classes `.tone-field` (band wash),
+`.tone-scrim` (over a masthead photograph) and `.tone-rule` (a hairline that
+dissolves at both ends). `.service-rule` is all three at once, and it is
+rationed to two places — the foot of the hero and the top of the footer.
+
+Nothing reads `--army` and friends directly, so a service can be recoloured from
+one declaration.
+
+### Motion: one scale, and `transform` stays free
+
+Four durations (`--dur-1` … `--dur-4`) and two curves, exposed to Tailwind as
+`ease-soft` (arriving) and `ease-swift` (travelling). Use them rather than
+Tailwind's defaults, so nothing on the site is timed by accident.
+
+- **Route changes** — `<PageTransition>` wraps the body of every `page.tsx`. It
+  has to be per-page, not in the layout: a layout persists across navigations,
+  so its enter and exit would never fire. `<SharedPhoto name={…}>` names a
+  photograph on both pages of a pair so it morphs between them instead of
+  disappearing; names must be unique per document.
+- **Scroll reveal** — add `.reveal`. It is a scroll-driven CSS animation, not an
+  IntersectionObserver, so anything already on screen paints finished rather
+  than flashing in, and browsers without the feature just get the page.
+- **One trap**: Tailwind v4 compiles `translate-*` / `scale-*` to the
+  independent `translate` and `scale` properties. So `transition-[transform,…]`
+  never fires for a hover lift — name `translate` or `scale` instead — and the
+  site's own keyframes animate `transform`, keeping the two out of each other's
+  way. An animation's filled value outranks any author rule, so a card that
+  revealed itself on `translate` could never be lifted on hover again.
+
+---
+
 ## Where the build has got to
 
 **Phase 0 — complete.** Next.js 16 + TypeScript + Tailwind v4, design tokens,

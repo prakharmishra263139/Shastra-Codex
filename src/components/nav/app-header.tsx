@@ -106,24 +106,36 @@ export function AppHeader({
 
   const closeMenu = useCallback(() => setMenuOpen(false), []);
 
-  const linkClass = (active: boolean) =>
-    `relative py-5 font-mono text-[11px] uppercase tracking-[0.14em] transition-colors ${
-      active ? "text-ink" : "text-ink-2 hover:text-ink"
+  /** `hover` names the colour an inactive link warms to — its service tone,
+      where it has one. */
+  const linkClass = (active: boolean, hover = "hover:text-ink") =>
+    `group relative py-5 font-mono text-[11px] uppercase tracking-[0.14em] transition-colors duration-200 ease-soft ${
+      active ? "text-ink" : `text-ink-2 ${hover}`
     }`;
 
-  const underline = (active: boolean, tone?: string) =>
-    active ? (
-      <span
-        aria-hidden
-        className="absolute inset-x-0 bottom-0 h-px"
-        style={{ background: tone ?? "var(--accent)" }}
-      />
-    ) : null;
+  /*
+   * Always rendered, and scaled rather than mounted, so the marker slides open
+   * under the section you are entering instead of blinking into place. It also
+   * previews itself at low opacity on hover.
+   */
+  const underline = (active: boolean) => (
+    <span
+      aria-hidden
+      className={`tone-bg absolute inset-x-0 bottom-0 h-px origin-left transition-[scale,opacity] duration-300 ease-soft ${
+        active
+          ? "scale-x-100 opacity-100"
+          : "scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-45"
+      }`}
+    />
+  );
 
   return (
     <>
       <header
-        className={`sticky top-0 z-40 transition-colors duration-300 ${
+        /* Anchored during a route change: the header is identical either side
+           of one, so animating it would only produce a flicker. */
+        style={{ viewTransitionName: "site-header" }}
+        className={`sticky top-0 z-40 transition-colors duration-300 ease-soft ${
           solid
             ? "border-b border-rule bg-ground/90 backdrop-blur-md"
             : "over-photo border-b border-transparent bg-transparent"
@@ -162,10 +174,11 @@ export function AppHeader({
                 <Link
                   key={force.slug}
                   href={`/forces/${force.slug}`}
-                  className={linkClass(active)}
+                  data-force={force.slug}
+                  className={linkClass(active, "hover:text-tone")}
                 >
                   {force.shortName}
-                  {underline(active, force.tone)}
+                  {underline(active)}
                 </Link>
               );
             })}
@@ -206,7 +219,7 @@ export function AppHeader({
             ref={searchButton}
             type="button"
             onClick={() => setPaletteOpen(true)}
-            className="ml-auto flex items-center gap-2 rounded-[5px] border border-rule bg-surface/70 px-3 py-1.5 text-left text-[13px] text-ink-3 backdrop-blur transition-colors hover:border-accent hover:text-ink-2 sm:w-56 lg:w-64"
+            className="ml-auto flex items-center gap-2 rounded-[5px] border border-rule bg-surface/70 px-3 py-1.5 text-left text-[13px] text-ink-3 backdrop-blur transition-colors duration-200 ease-soft hover:border-accent hover:text-ink-2 sm:w-56 lg:w-64"
           >
             <svg width="13" height="13" viewBox="0 0 14 14" aria-hidden fill="none">
               <circle cx="6" cy="6" r="4.2" stroke="currentColor" strokeWidth="1.4" />

@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 /**
- * The page skeleton, in four pieces. With the sidebar gone every surface is
- * full-width, so the measure has to be re-established somewhere — it is
- * established here, once, rather than in a `max-w` on every page.
+ * The page skeleton. With the sidebar gone every surface is full-width, so the
+ * measure has to be re-established somewhere — it is established here, once,
+ * rather than in a `max-w` on every page.
  */
 
 /** The one content column width on the site. */
@@ -26,6 +26,17 @@ export function Wrap({
   );
 }
 
+/**
+ * The tri-service hairline: olive, sky blue and gold in equal thirds.
+ *
+ * The site's one piece of pure ornament, and rationed accordingly — the foot of
+ * the hero and the top of the footer. Anywhere else and it stops reading as a
+ * signature.
+ */
+export function ServiceRule({ className = "" }: { className?: string }) {
+  return <span aria-hidden className={`service-rule block h-px w-full ${className}`} />;
+}
+
 /** The small mono label that opens almost every block on the site. */
 export function Eyebrow({
   children,
@@ -43,7 +54,7 @@ export function Eyebrow({
   return (
     <p
       className={`flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] ${
-        toned ? "tone-text" : "text-ink-3"
+        toned ? "text-tone" : "text-ink-3"
       } ${className}`}
     >
       {index && (
@@ -60,7 +71,8 @@ export function Eyebrow({
 /**
  * A full section opener: eyebrow, title, optional lede and an optional link
  * pushed to the far edge. The rule underneath is what gives the page its
- * horizontal rhythm.
+ * horizontal rhythm, and a short length of it picks up the section tone so a
+ * toned band is identifiable from the heading alone.
  */
 export function SectionHeader({
   eyebrow,
@@ -78,7 +90,14 @@ export function SectionHeader({
   toned?: boolean;
 }) {
   return (
-    <div className="border-b border-rule pb-6">
+    <div className="reveal relative border-b border-rule pb-6">
+      {toned && (
+        <span
+          aria-hidden
+          className="absolute -bottom-px left-0 h-px w-24 bg-tone"
+        />
+      )}
+
       <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
         <div className="min-w-0 max-w-[46ch]">
           <Eyebrow index={index} toned={toned}>
@@ -95,12 +114,12 @@ export function SectionHeader({
         {action && (
           <Link
             href={action.href}
-            className="group shrink-0 font-mono text-[11px] uppercase tracking-[0.14em] text-ink-2 transition-colors hover:text-accent"
+            className="group shrink-0 font-mono text-[11px] uppercase tracking-[0.14em] text-ink-2 transition-colors duration-200 ease-soft hover:text-accent"
           >
             {action.label}
             <span
               aria-hidden
-              className="ml-2 inline-block transition-transform group-hover:translate-x-1"
+              className="ml-2 inline-block transition-transform duration-200 ease-soft group-hover:translate-x-1"
             >
               →
             </span>

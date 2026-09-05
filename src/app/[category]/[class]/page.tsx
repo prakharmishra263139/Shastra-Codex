@@ -7,6 +7,7 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Wrap, Eyebrow } from "@/components/layout/section";
 import { PhotoMasthead } from "@/components/layout/masthead";
 import { EntryBrowser } from "@/components/browse/entry-browser";
+import { PageTransition } from "@/components/layout/page-transition";
 
 export function generateStaticParams() {
   return TAXONOMY.flatMap((c) =>
@@ -56,7 +57,7 @@ export default async function ClassPage({ params }: PageProps<"/[category]/[clas
   );
 
   return (
-    <>
+    <PageTransition>
       {/* Same rule as a category: a photograph only where we hold an honest
           one of the class in Indian service. */}
       {found.image ? (
@@ -93,6 +94,6 @@ export default async function ClassPage({ params }: PageProps<"/[category]/[clas
           )}
         </section>
       </Wrap>
-    </>
+    </PageTransition>
   );
 }

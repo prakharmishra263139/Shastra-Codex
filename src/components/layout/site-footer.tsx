@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { TAXONOMY } from "@/content/taxonomy";
 import { FORCES } from "@/content/forces";
-import { Wrap } from "@/components/layout/section";
+import { Wrap, ServiceRule } from "@/components/layout/section";
 
 /**
  * The footer carries the sitemap the sidebar used to carry: every category and
@@ -12,6 +12,9 @@ import { Wrap } from "@/components/layout/section";
 export function SiteFooter() {
   return (
     <footer className="mt-24 border-t border-rule bg-ground-2">
+      {/* The site signs off the way it opened: three services, one hairline. */}
+      <ServiceRule className="-mt-px" />
+
       <Wrap wide className="py-14">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1.6fr]">
           <div className="max-w-[38ch]">
@@ -44,7 +47,7 @@ export function SiteFooter() {
                 <li key={force.slug}>
                   <Link
                     href={`/forces/${force.slug}`}
-                    className="text-[13.5px] text-ink-2 transition-colors hover:text-accent"
+                    className="text-[13.5px] text-ink-2 transition-colors duration-200 ease-soft hover:text-accent"
                   >
                     {force.name}
                   </Link>
@@ -53,7 +56,7 @@ export function SiteFooter() {
               <li>
                 <Link
                   href="/forces"
-                  className="text-[13.5px] text-ink-2 transition-colors hover:text-accent"
+                  className="text-[13.5px] text-ink-2 transition-colors duration-200 ease-soft hover:text-accent"
                 >
                   All arms &amp; commands
                 </Link>
@@ -70,7 +73,7 @@ export function SiteFooter() {
                 <li key={category.slug}>
                   <Link
                     href={`/${category.slug}`}
-                    className="text-[13.5px] text-ink-2 transition-colors hover:text-accent"
+                    className="text-[13.5px] text-ink-2 transition-colors duration-200 ease-soft hover:text-accent"
                   >
                     {category.name}
                   </Link>

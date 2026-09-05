@@ -38,7 +38,7 @@ export function RecentlyViewed() {
           <li key={entry.slug}>
             <Link
               href={entry.href}
-              className="inline-block rounded-[5px] border border-rule bg-surface px-3.5 py-2 text-[13px] text-ink-2 transition-colors hover:border-accent hover:text-accent"
+              className="inline-block rounded-[5px] border border-rule bg-surface px-3.5 py-2 text-[13px] text-ink-2 transition-[translate,border-color,color] duration-200 ease-soft hover:-translate-y-0.5 hover:border-accent hover:text-accent"
             >
               {entry.name}
             </Link>
